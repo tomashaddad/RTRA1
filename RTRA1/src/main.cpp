@@ -6,7 +6,7 @@
 
 int main(int argc, char** argv) {
 	try {
-		std::unique_ptr<RTRApp> app = std::make_unique<RTRApp>("RTRA1", 1280, 720, false);
+		std::unique_ptr<RTRApp> app = std::make_unique<RTRApp>("RTRA1", 1280, 720, true);
 		app->run();
 	}
 	catch (const GLException& e) {

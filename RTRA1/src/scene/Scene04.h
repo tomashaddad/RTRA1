@@ -5,5 +5,6 @@
 class Scene04 : public SceneBase {
 public:
 	virtual void render() override;
+	virtual void init() override;
 };
 

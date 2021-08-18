@@ -63,6 +63,12 @@
     <ClCompile Include="src\api\VAO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\Scene00.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\dependencies\glm\detail\_features.hpp">
@@ -911,7 +917,7 @@
     <ClInclude Include="src\dependencies\glm\vector_relational.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\dependencies\stb_image\stb_image.h">
+    <ClInclude Include="src\dependencies\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\RTRApp.h">
@@ -957,6 +963,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\api\Container.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dependencies\gltext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\Scene00.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1369,5 +1384,7 @@
     <None Include="src\dependencies\glm\gtx\wrap.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="src\shaders\scene00\triangle.frag" />
+    <None Include="src\shaders\scene00\triangle.vert" />
   </ItemGroup>
 </Project>

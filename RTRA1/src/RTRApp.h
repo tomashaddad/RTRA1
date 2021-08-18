@@ -12,6 +12,8 @@
 
 #include "scene/SceneBase.h"
 
+#include "Camera.h"
+
 enum class State {
 	GOOD,
 	RUN,
@@ -34,5 +36,5 @@ private:
 	SDLManager m_sdlManager;
 	GLManager m_glManager;
 
-	std::array<std::unique_ptr<SceneBase>, 6> m_scenes;
+	std::array<std::unique_ptr<SceneBase>, 7> m_scenes;
 };

@@ -4,10 +4,28 @@
 
 #include "GLException.h"
 
-SDLManager::SDLManager(const std::string& title, unsigned int width, unsigned int height, bool fullscreen)
+#include <iostream>
+
+void GLAPIENTRY
+MessageCallback(GLenum source,
+	GLenum type,
+	GLuint id,
+	GLenum severity,
+	GLsizei length,
+	const GLchar* message,
+	const void* userParam)
+{
+	fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+		(type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+		type, severity, message);
+}
+
+SDLManager::SDLManager(const std::string& title, int width, int height, bool fullscreen)
 	: m_window({ title, width, height, fullscreen })
 {
 	initialise();
+	glEnable(GL_DEBUG_OUTPUT);
+	glDebugMessageCallback(MessageCallback, 0);
 }
 
 SDLManager::~SDLManager() {
@@ -30,20 +48,6 @@ bool SDLManager::initialise() {
 		throw GLException("Failed to initialise GLAD", __FILE__, __LINE__);
 
 	return true;
-}
-
-void SDLManager::swapBuffers() const {
-	SDL_GL_SwapWindow(m_sdl.window);
-}
-
-float const SDLManager::getTimeElapsed() {
-	m_timer.time = SDL_GetTicks() / 1000.0f;
-	return m_timer.time;
-}
-
-float const SDLManager::getFrameDeltaTime() {
-	m_timer.deltaTime = getTimeElapsed() - m_timer.time;
-	return m_timer.deltaTime;
 }
 
 bool SDLManager::initSDL() {
@@ -79,6 +83,9 @@ bool SDLManager::initWindow() {
 	if (m_sdl.window == NULL) {
 		return false;
 	}
+
+	SDL_GetWindowSize(m_sdl.window, &m_window.width, &m_window.height);
+
 	return true;
 }
 
@@ -93,4 +100,26 @@ bool SDLManager::initContext() {
 
 bool SDLManager::initGLAD() {
 	return gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress);
+}
+
+void SDLManager::swapBuffers() const {
+	SDL_GL_SwapWindow(m_sdl.window);
+}
+
+float const SDLManager::getTimeElapsed() {
+	m_timer.time = SDL_GetTicks() / 1000.0f;
+	return m_timer.time;
+}
+
+float const SDLManager::getFrameDeltaTime() {
+	m_timer.deltaTime = getTimeElapsed() - m_timer.time;
+	return m_timer.deltaTime;
+}
+
+const unsigned int SDLManager::getWindowWidth() const {
+	return m_window.width;
+}
+
+const unsigned int SDLManager::getWindowHeight() const {
+	return m_window.height;
 }

@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 
-Shader::Shader(const char* vertexShader, const char* fragmentShader, const char* geometryShader, const bool& fromFile)
+Shader::Shader(const std::string& vertexShader, const std::string& fragmentShader, const std::string& geometryShader, const bool& fromFile)
 	: m_programID(0)
 	, m_vertexID(0)
 	, m_fragmentID(0)
@@ -18,13 +18,13 @@ Shader::Shader(const char* vertexShader, const char* fragmentShader, const char*
 	if (fromFile) {
 		vs = parseFile(vertexShader);
 		fs = parseFile(fragmentShader);
-		if (geometryShader) {
+		if (!geometryShader.empty()) {
 			gs = parseFile(geometryShader);
 		}
 	} else {
 		vs = vertexShader;
 		fs = fragmentShader;
-		if (geometryShader) {
+		if (!geometryShader.empty()) {
 			gs = geometryShader;
 		}
 	}
@@ -32,13 +32,13 @@ Shader::Shader(const char* vertexShader, const char* fragmentShader, const char*
 	m_programID = glCreateProgram();
 	m_vertexID = compileShader(GL_VERTEX_SHADER, vs);
 	m_fragmentID = compileShader(GL_FRAGMENT_SHADER, fs);
-	if (geometryShader) {
+	if (!geometryShader.empty()) {
 		m_geometryID = compileShader(GL_GEOMETRY_SHADER, gs);
 	}
 
 	attachShaderByID(m_vertexID);
 	attachShaderByID(m_fragmentID);
-	if (geometryShader) {
+	if (!geometryShader.empty()) {
 		attachShaderByID(m_geometryID);
 	}
 
@@ -68,7 +68,7 @@ Shader::Shader(const char* vertexShader, const char* fragmentShader, const char*
 	glDetachShader(m_programID, m_fragmentID);
 	glDeleteShader(m_fragmentID);
 
-	if (geometryShader != nullptr) {
+	if (!geometryShader.empty()) {
 		glDetachShader(m_programID, m_geometryID);
 		glDeleteShader(m_geometryID);
 	}
@@ -101,8 +101,8 @@ void Shader::attachShaderByID(const GLuint id) {
 	}
 }
 
-std::string Shader::parseFile(const char* file) {
-	if (!file) {
+std::string Shader::parseFile(const std::string& file) {
+	if (file.empty()) {
 		return "";
 	}
 
@@ -120,13 +120,13 @@ std::string Shader::parseFile(const char* file) {
 }
 
 Shader::~Shader() {
-	glDeleteProgram(m_programID);
+	//glDeleteProgram(m_programID);
 }
 
 bool Shader::bind() const {
-	if (m_compiled) {
+
 		glUseProgram(m_programID);
-	}
+
 	return m_compiled;
 }
 

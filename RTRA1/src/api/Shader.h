@@ -6,7 +6,7 @@
 
 class Shader {
 public:
-	Shader(const char* vertexShader, const char* fragmentShader, const char* geometryShader = nullptr, const bool& fromFile = true);
+	Shader(const std::string& vertexShader, const std::string& fragmentShader, const std::string& geometryShader = "", const bool& fromFile = true);
 	~Shader();
 
 	bool bind() const;
@@ -16,7 +16,7 @@ public:
 	const GLuint getID() const;
 
 private:
-	std::string parseFile(const char* file);
+	std::string parseFile(const std::string& file);
 	GLuint compileShader(const GLenum& type, const std::string& shader);
 	void attachShaderByID(const GLuint id);
 	

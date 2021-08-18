@@ -11,8 +11,8 @@ struct Timer {
 
 struct Window {
 	const std::string title;
-	unsigned int width;
-	unsigned int height;
+	int width;
+	int height;
 	bool fullscreen;
 };
 
@@ -24,14 +24,18 @@ struct SDL {
 class SDLManager
 {
 public:
-	SDLManager(const std::string& title, unsigned int width, unsigned int height, bool fullscreen);
+	SDLManager(const std::string& title, int width, int height, bool fullscreen);
 	~SDLManager();
 	bool initialise();
 
 	void swapBuffers() const;
 
-	float const getTimeElapsed();
-	float const getFrameDeltaTime();
+public:
+	const float getTimeElapsed();
+	const float getFrameDeltaTime();
+
+	const unsigned int getWindowWidth() const;
+	const unsigned int getWindowHeight() const;
 
 private:
 	bool initSDL();

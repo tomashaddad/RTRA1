@@ -3,3 +3,7 @@
 void Scene05::render() {
 
 }
+
+void Scene05::init()
+{
+}
