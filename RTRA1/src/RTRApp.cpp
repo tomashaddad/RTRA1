@@ -1,14 +1,29 @@
 #include "RTRApp.h"
-#include "GLException.h"
 
 #include <iostream>
+
+#include "GLException.h"
+#include "scene/Scene01.h"
+#include "scene/Scene02.h"
+#include "scene/Scene03.h"
+#include "scene/Scene04.h"
+#include "scene/Scene05.h"
+#include "scene/Scene06.h"
 
 RTRApp::RTRApp(const std::string& title, unsigned int width, unsigned int height, bool fullscreen)
 	: m_sdlManager(title, width, height, fullscreen)
 	, m_state(State::GOOD)
+	, m_currentScene(0)
 {
 	m_glManager.enableDepthTesting(true);
 	m_glManager.cullBackFaces(true);
+
+	m_scenes[0] = std::make_unique<Scene01>();
+	m_scenes[1] = std::make_unique<Scene02>();
+	m_scenes[2] = std::make_unique<Scene03>();
+	m_scenes[3] = std::make_unique<Scene04>();
+	m_scenes[4] = std::make_unique<Scene05>();
+	m_scenes[5] = std::make_unique<Scene06>();
 }
 
 void RTRApp::run() {
@@ -37,13 +52,15 @@ void RTRApp::checkInput() {
 	}
 }
 
-void RTRApp::updateState(unsigned int dt) {
+void RTRApp::updateState(float dt) {
 
 }
 
-void RTRApp::renderFrame(double dt) {
+void RTRApp::renderFrame(float dt) {
 	glClearColor(1.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	m_scenes[m_currentScene]->render();
 
 	m_sdlManager.swapBuffers();
 }

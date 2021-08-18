@@ -1,0 +1,9 @@
+#pragma once
+
+#include "SceneBase.h"
+
+class Scene03 : public SceneBase {
+public:
+	virtual void render() override;
+};
+

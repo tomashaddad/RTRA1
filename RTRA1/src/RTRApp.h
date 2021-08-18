@@ -4,9 +4,13 @@
 #include <SDL.h>
 
 #include <string>
+#include <memory>
+#include <array>
 
 #include "SDLManager.h"
 #include "GLManager.h"
+
+#include "scene/SceneBase.h"
 
 enum class State {
 	GOOD,
@@ -21,11 +25,14 @@ public:
 	void run();
 
 	void checkInput();
-	void updateState(unsigned int dt);
-	void renderFrame(double dt);
+	void updateState(float dt);
+	void renderFrame(float dt);
 
-protected:
+private:
+	unsigned int m_currentScene;
 	State m_state;
 	SDLManager m_sdlManager;
 	GLManager m_glManager;
+
+	std::array<std::unique_ptr<SceneBase>, 6> m_scenes;
 };
