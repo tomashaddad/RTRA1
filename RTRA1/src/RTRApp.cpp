@@ -33,11 +33,12 @@ RTRApp::RTRApp(const std::string& title, unsigned int width, unsigned int height
 	m_scenes[5] = std::make_unique<Scene05>();
 	m_scenes[6] = std::make_unique<Scene06>();
 
-	m_scenes[m_currentScene]->init();
-
+	// TODO: PUT THIS SOMEWHERE ELSE?
 	const float aspect = static_cast<float>(m_sdlManager.getWindowWidth()) /
 						 static_cast<float>(m_sdlManager.getWindowHeight());
-	Camera::getInstance().setAspectRatio(aspect);
+	Camera::getInstance().setPerspectiveMatrix(45.0f, aspect, 0.1f, 100.0f);
+
+	m_scenes[m_currentScene]->init();
 }
 
 void RTRApp::run() {

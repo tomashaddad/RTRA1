@@ -15,13 +15,12 @@ void GLManager::enableDepthTesting(bool enable) {
 
 void GLManager::cullBackFaces(bool cull) {
     if (cull && !m_cullingBackFace) {
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
-        glFrontFace(GL_CCW);
-        goto gohere;
+        //glEnable(GL_CULL_FACE);
+        //glCullFace(GL_BACK);
+        //glFrontFace(GL_CCW);
+        glDisable(GL_CULL_FACE);
         m_cullingBackFace = true;
     } else if (!cull && m_cullingBackFace) {
-        gohere:
         glDisable(GL_CULL_FACE);
         m_cullingBackFace = false;
     }

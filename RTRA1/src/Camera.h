@@ -9,11 +9,10 @@ public:
 		return camera;
 	}
 
-	void setAspectRatio(const float aspect);
+	void setPerspectiveMatrix(const float fov, const float aspect, const float near, const float far);
+	glm::mat4 getPerspectiveMatrix() const;
 
 private:
 	glm::mat4 m_view;
-	glm::mat4 m_projection;
-
-	float m_aspect;
+	glm::mat4 m_perspective;
 };

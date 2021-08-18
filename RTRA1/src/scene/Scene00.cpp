@@ -7,6 +7,10 @@
 
 #include <iostream>
 
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "glm/gtx/string_cast.hpp"
+
 Scene00::Scene00() {
     m_shader = std::make_unique<Shader>("./src/shaders/scene00/triangle.vert", "./src/shaders/scene00/triangle.frag");
 }
@@ -42,6 +46,12 @@ void Scene00::init() {
     // as we only have a single shader, we could also just activate our shader once beforehand if we want to 
 
     m_shader->bind();
+
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
+    m_shader->setMat4("view", view);
+    m_shader->setMat4("projection", Camera::getInstance().getPerspectiveMatrix());
+
+    std::cout << glm::to_string(view) << std::endl;
 }
 
 void Scene00::render() {

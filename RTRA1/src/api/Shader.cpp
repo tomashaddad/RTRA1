@@ -141,3 +141,7 @@ GLint Shader::getUniform(const std::string& name) {
 const GLuint Shader::getID() const {
 	return m_programID;
 }
+
+void Shader::setMat4(const std::string& uniformName, const glm::mat4& m) {
+	glUniformMatrix4fv(glGetUniformLocation(m_programID, uniformName.c_str()), 1, GL_FALSE, &m[0][0]);
+}

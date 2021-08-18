@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
-
+#include <glm/glm.hpp>
 #include <string>
 
 class Shader {
@@ -14,6 +14,8 @@ public:
 
 	GLint getUniform(const std::string& name);
 	const GLuint getID() const;
+
+	void setMat4(const std::string& uniformName, const glm::mat4& m);
 
 private:
 	std::string parseFile(const std::string& file);
