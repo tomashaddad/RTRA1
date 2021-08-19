@@ -14,13 +14,20 @@
 #define GLT_IMPLEMENTATION
 #include "dependencies/gltext.h"
 
+RTRApp* RTRApp::m_instance = nullptr;
+
 RTRApp::RTRApp(const std::string& title, unsigned int width, unsigned int height, bool fullscreen)
-	: m_sdlManager(title, width, height, fullscreen)
+	: m_sdlManager(std::make_unique<SDLManager>(title, width, height, fullscreen))
+	, m_glManager(std::make_unique<GLManager>())
+	, m_inputManager(std::make_unique<InputManager>())
+	, m_camera(std::make_unique<Camera>())
 	, m_state(State::GOOD)
 	, m_currentScene(0)
 {
-	m_glManager.enableDepthTesting(true);
-	m_glManager.cullBackFaces(true);
+	m_instance = this;
+
+	m_glManager->enableDepthTesting(true);
+	m_glManager->cullBackFaces(true);
 
 	// simple scene with cube, lights and text for testing
 	m_scenes[0] = std::make_unique<Scene00>();
@@ -34,9 +41,9 @@ RTRApp::RTRApp(const std::string& title, unsigned int width, unsigned int height
 	m_scenes[6] = std::make_unique<Scene06>();
 
 	// TODO: PUT THIS SOMEWHERE ELSE?
-	const float aspect = static_cast<float>(m_sdlManager.getWindowWidth()) /
-						 static_cast<float>(m_sdlManager.getWindowHeight());
-	Camera::getInstance().setPerspectiveMatrix(45.0f, aspect, 0.1f, 100.0f);
+	const float aspect = static_cast<float>(m_sdlManager->getWindowWidth()) /
+						 static_cast<float>(m_sdlManager->getWindowHeight());
+	m_camera->setPerspectiveMatrix(45.0f, aspect, 0.1f, 100.0f);
 
 	m_scenes[m_currentScene]->init();
 }
@@ -44,7 +51,7 @@ RTRApp::RTRApp(const std::string& title, unsigned int width, unsigned int height
 void RTRApp::run() {
 	while (m_state != State::QUIT) {
 		checkInput();
-		float dt = m_sdlManager.getFrameDeltaTime();
+		float dt = m_sdlManager->getFrameDeltaTime();
 		updateState(dt);
 		renderFrame(dt);
 	}
@@ -62,6 +69,9 @@ void RTRApp::checkInput() {
 			case SDLK_ESCAPE:
 				m_state = State::QUIT;
 				break;
+			case SDLK_w:
+				std::cout << "W" << std::endl;
+				break;
 			}
 		}
 	}
@@ -77,5 +87,21 @@ void RTRApp::renderFrame(float dt) {
 
 	m_scenes[m_currentScene]->render();
 
-	m_sdlManager.swapBuffers();
+	m_sdlManager->swapBuffers();
+}
+
+const SDLManager* RTRApp::getSDLManager() const {
+	return m_sdlManager.get();
+}
+
+const GLManager* RTRApp::getGLManager() const {
+	return m_glManager.get();
+}
+
+const InputManager* RTRApp::getInputManager() const {
+	return m_inputManager.get();
+}
+
+const Camera* RTRApp::getCamera() const {
+	return m_camera.get();
 }

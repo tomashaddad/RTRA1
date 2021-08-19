@@ -2,13 +2,12 @@
 
 #include <glad/glad.h>
 
+#include "RTRApp.h"
 #include "api/Shader.h"
-#include "Camera.h"
 
 #include <iostream>
 
 #include <glm/gtc/matrix_transform.hpp>
-
 #include "glm/gtx/string_cast.hpp"
 
 Scene00::Scene00() {
@@ -49,9 +48,7 @@ void Scene00::init() {
 
     glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
     m_shader->setMat4("view", view);
-    m_shader->setMat4("projection", Camera::getInstance().getPerspectiveMatrix());
-
-    std::cout << glm::to_string(view) << std::endl;
+    m_shader->setMat4("projection", RTRApp::instance().getCamera()->getPerspectiveMatrix());
 }
 
 void Scene00::render() {

@@ -9,6 +9,7 @@
 
 #include "SDLManager.h"
 #include "GLManager.h"
+#include "InputManager.h"
 
 #include "scene/SceneBase.h"
 
@@ -22,6 +23,10 @@ enum class State {
 
 class RTRApp {
 public:
+	static RTRApp& instance() {
+		return *m_instance;
+	}
+
 	RTRApp(const std::string& title, unsigned int width, unsigned int height, bool fullscreen);
 
 	void run();
@@ -30,11 +35,22 @@ public:
 	void updateState(float dt);
 	void renderFrame(float dt);
 
+public:
+	const SDLManager* getSDLManager() const;
+	const GLManager* getGLManager() const;
+	const InputManager* getInputManager() const;
+	const Camera* getCamera() const;
+
 private:
-	unsigned int m_currentScene;
+	static RTRApp* m_instance;
+
 	State m_state;
-	SDLManager m_sdlManager;
-	GLManager m_glManager;
+	unsigned int m_currentScene;
+
+	std::unique_ptr<SDLManager> m_sdlManager;
+	std::unique_ptr<GLManager> m_glManager;
+	std::unique_ptr<InputManager> m_inputManager;
+	std::unique_ptr<Camera> m_camera;
 
 	std::array<std::unique_ptr<SceneBase>, 7> m_scenes;
 };
