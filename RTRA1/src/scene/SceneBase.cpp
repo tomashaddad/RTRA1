@@ -1,35 +1,37 @@
 #include "SceneBase.h"
 
+#include <iostream>
+#include <cmath>
 
 SceneBase::SceneBase() {
-	recursiveMenger(1, 0, 1);
+	recursiveMenger(0, 0, 0, 1, 0, 3);
 }
 
-void SceneBase::recursiveMenger(float edgeLength, int currentSubdivision, int maxSubdivisions) {
+void SceneBase::recursiveMenger(float x, float y, float z, float edgeLength, int currentSubdivision, int maxSubdivisions) {
 
 	if (maxSubdivisions == 0) {
 		generateCubeVerticesAt(0, 0, 0, edgeLength);
+		return;
 	}
 
 	// x axis
-	for (int i = 0; i < 3; ++i) {
+	for (int i = -1; i < 2; ++i) {
 		// y axis
-		for (int j = 0; j < 3; ++j) {
+		for (int j = -1; j < 2; ++j) {
 			// z axis
-			for (int k = 0; k < 3; ++k) {
-				if (currentSubdivision < maxSubdivisions) {
-					recursiveMenger(edgeLength / 3.0f, currentSubdivision + 1, maxSubdivisions);
-				}
-				else {
-					int counter = 0;
-					if (i == 1) ++counter;
-					if (j == 1) ++counter;
-					if (k == 1) ++counter;
+			for (int k = -1; k < 2; ++k) {
+				int sum = abs(i) + abs(j) + abs(k);
 
-					if (counter < 2) {
-						generateCubeVerticesAt(-edgeLength + i * edgeLength, -edgeLength + j * edgeLength, -edgeLength + k * edgeLength, edgeLength / 2.0f);
+				if (sum > 1) {
+					float thirdEdge = edgeLength / 3.0f;
+					float newX = x + i * thirdEdge;
+					float newY = y + j * thirdEdge;
+					float newZ = z + k * thirdEdge;
+					if (currentSubdivision < maxSubdivisions - 1) {
+						recursiveMenger(newX, newY, newZ, thirdEdge, currentSubdivision + 1, maxSubdivisions);
+					} else if (currentSubdivision == maxSubdivisions - 1) {
+						generateCubeVerticesAt(newX, newY, newZ, thirdEdge / 2.0f);
 					}
-					
 				}
 			}
 		}

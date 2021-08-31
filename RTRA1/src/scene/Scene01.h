@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneBase.h"
 
+#include <glm/glm.hpp>
 #include <glad/glad.h>
 
 class Scene01 : public SceneBase {

@@ -32,7 +32,7 @@ void Text::update() const {
 
 		text
 		<< "Scene: "	<< scene << std::endl
-		<< "Display: "  << width << " x " << height << "(" << fps << "FPS)" << std::endl;
+		<< "Display: "  << width << " x " << height << "(" << fps << " Hz)" << std::endl;
 
 	}
 

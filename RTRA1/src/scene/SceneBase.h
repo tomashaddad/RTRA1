@@ -12,7 +12,7 @@ public:
 	virtual void quit() = 0;
 
 protected:
-	virtual void recursiveMenger(float edgeLength, int currentDivisions, int maxSubdivisions);
+	virtual void recursiveMenger(float x, float y, float z, float edgeLength, int currentDivisions, int maxSubdivisions);
 	virtual void generateCubeVerticesAt(float x, float y, float z, float edgeLength);
 
 	std::vector<glm::vec3> m_vertices;
