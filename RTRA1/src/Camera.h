@@ -21,10 +21,12 @@ public:
 
 	void moveForward();
 	void moveBackward();
-	void rollLeft();
-	void rollRight();
 	void yaw(signed int degree);
 	void pitch(signed int degree);
+	void rollLeft();
+	void rollRight();
+
+	void reset();
 
 public:
 	glm::vec3 getPosition() const;

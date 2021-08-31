@@ -88,6 +88,9 @@ void RTRApp::checkInput() {
 				case SDLK_h:
 					getText()->toggleFPSMode();
 					break;
+				case SDLK_r:
+					getCamera()->reset();
+					break;
 				case SDLK_z:
 					getGLManager()->toggleDepthTesting();
 					break;

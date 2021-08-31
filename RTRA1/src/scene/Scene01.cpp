@@ -22,14 +22,15 @@ void Scene01::init() {
 void Scene01::render() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
 	glMultMatrixf((const float*)glm::value_ptr(RTRApp::instance().getCamera()->getViewMatrix()));
 
-	glPointSize(10);
-	glBegin(GL_QUADS);
-	glVertex3f(-0.5, -0.5, 0.0);
-	glVertex3f(0.5, -0.5, 0.0);
-	glVertex3f(0.5, 0.5, 0.0);
-	glVertex3f(-0.5, 0.5, 0.0);
+	glBegin(GL_TRIANGLES);
+	for (int index = 0; index < m_indices.size() - 3; index += 3) {
+		glVertex3f(m_vertices[m_indices[index + 0]].x, m_vertices[m_indices[index + 0]].y, m_vertices[m_indices[index + 0]].z);
+		glVertex3f(m_vertices[m_indices[index + 1]].x, m_vertices[m_indices[index + 1]].y, m_vertices[m_indices[index + 1]].z);
+		glVertex3f(m_vertices[m_indices[index + 2]].x, m_vertices[m_indices[index + 2]].y, m_vertices[m_indices[index + 2]].z);
+	}
 	glEnd();
 }
 

@@ -21,7 +21,15 @@ void SceneBase::recursiveMenger(float edgeLength, int currentSubdivision, int ma
 					recursiveMenger(edgeLength / 3.0f, currentSubdivision + 1, maxSubdivisions);
 				}
 				else {
-					generateCubeVerticesAt(-edgeLength + i * edgeLength, -edgeLength + j * edgeLength, -edgeLength + k * edgeLength, edgeLength / 2.0f);
+					int counter = 0;
+					if (i == 1) ++counter;
+					if (j == 1) ++counter;
+					if (k == 1) ++counter;
+
+					if (counter < 2) {
+						generateCubeVerticesAt(-edgeLength + i * edgeLength, -edgeLength + j * edgeLength, -edgeLength + k * edgeLength, edgeLength / 2.0f);
+					}
+					
 				}
 			}
 		}

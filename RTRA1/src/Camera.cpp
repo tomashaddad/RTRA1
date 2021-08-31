@@ -36,6 +36,11 @@ void Camera::rollRight() {
 	m_rotation *= glm::angleAxis(glm::radians(-2.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
+void Camera::reset() {
+	m_position = glm::vec3(0.0f);
+	m_rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+}
+
 glm::vec3 Camera::getPosition() const {
 	return m_position;
 }
