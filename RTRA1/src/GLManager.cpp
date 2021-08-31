@@ -2,26 +2,37 @@
 
 #include <iostream>
 
-void GLManager::enableDepthTesting(bool enable) {
-    if (enable && !m_depthTesting) {
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LESS);
-        m_depthTesting = true;
-    } else if (!enable && m_depthTesting) {
+
+GLManager::GLManager()
+    : m_depthTesting(true)
+    , m_cullBackFace(true)
+{
+    // non-changing state
+    glDepthFunc(GL_LESS);
+    glFrontFace(GL_CCW);
+    glCullFace(GL_BACK);
+
+    // changing state
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+}
+
+void GLManager::toggleDepthTesting() {
+    if (m_depthTesting) {
         glDisable(GL_DEPTH_TEST);
         m_depthTesting = false;
+    } else {
+        glEnable(GL_DEPTH_TEST);
+        m_depthTesting = true;
     }
 }
 
-void GLManager::cullBackFaces(bool cull) {
-    if (cull && !m_cullingBackFace) {
-        //glEnable(GL_CULL_FACE);
-        //glCullFace(GL_BACK);
-        //glFrontFace(GL_CCW);
+void GLManager::toggleBackFaceCulling() {
+    if (m_cullBackFace) {
         glDisable(GL_CULL_FACE);
-        m_cullingBackFace = true;
-    } else if (!cull && m_cullingBackFace) {
-        glDisable(GL_CULL_FACE);
-        m_cullingBackFace = false;
+        m_cullBackFace = false;
+    } else {
+        glEnable(GL_CULL_FACE);
+        m_cullBackFace = true;
     }
 }

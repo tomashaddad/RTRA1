@@ -29,13 +29,20 @@ public:
 	bool initialise();
 
 	void swapBuffers() const;
+	void enableCoreProfile() const;
+	void enableCompatibilityProfile() const;
+
+	void update();
 
 public:
 	const float getTimeElapsed();
 	const float getFrameDeltaTime();
 
-	const unsigned int getWindowWidth() const;
-	const unsigned int getWindowHeight() const;
+	const unsigned int& getWindowWidth() const;
+	const unsigned int& getWindowHeight() const;
+
+	const unsigned int getFPS() const;
+
 
 private:
 	bool initSDL();

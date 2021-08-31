@@ -9,11 +9,12 @@
 
 #include "SDLManager.h"
 #include "GLManager.h"
-#include "InputManager.h"
 
 #include "scene/SceneBase.h"
 
 #include "Camera.h"
+
+#include "Text.h"
 
 enum class State {
 	GOOD,
@@ -27,30 +28,34 @@ public:
 		return *m_instance;
 	}
 
-	RTRApp(const std::string& title, unsigned int width, unsigned int height, bool fullscreen);
+	RTRApp(const std::string& title, unsigned int width = 1280, unsigned int height = 720, bool fullscreen = true);
 
 	void run();
 
 	void checkInput();
-	void updateState(float dt);
+	void switchToScene(unsigned int sceneNumber);
 	void renderFrame(float dt);
+	void quit();
 
 public:
-	const SDLManager* getSDLManager() const;
-	const GLManager* getGLManager() const;
-	const InputManager* getInputManager() const;
-	const Camera* getCamera() const;
+	SDLManager* getSDLManager() const;
+	GLManager* getGLManager() const;
+	Camera* getCamera() const;
+	Text* getText() const;
+
+	const unsigned int& getCurrentSceneNumber() const;
 
 private:
 	static RTRApp* m_instance;
 
 	State m_state;
-	unsigned int m_currentScene;
 
 	std::unique_ptr<SDLManager> m_sdlManager;
 	std::unique_ptr<GLManager> m_glManager;
-	std::unique_ptr<InputManager> m_inputManager;
 	std::unique_ptr<Camera> m_camera;
 
-	std::array<std::unique_ptr<SceneBase>, 7> m_scenes;
+	unsigned int m_currentSceneNumber;
+	std::unique_ptr<SceneBase> m_currentScene;
+
+	std::unique_ptr<Text> m_text;
 };

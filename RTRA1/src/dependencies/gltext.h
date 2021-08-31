@@ -387,7 +387,7 @@ extern "C" {
 
 	GLT_API void gltEndDraw()
 	{
-
+		glUseProgram(0);
 	}
 
 #define _gltDrawText() \

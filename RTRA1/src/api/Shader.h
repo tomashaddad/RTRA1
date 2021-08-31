@@ -12,10 +12,16 @@ public:
 	bool bind() const;
 	void unbind() const;
 
-	GLint getUniform(const std::string& name);
 	const GLuint getID() const;
 
-	void setMat4(const std::string& uniformName, const glm::mat4& m);
+	GLint getUniformLocation(const std::string& uniformName);
+	void setInt(const std::string& uniformName, int value);
+	void setFloat(const std::string& uniformName, float value);
+	void setVec2f(const std::string& uniformName, const glm::vec2& value);
+	void setVec3f(const std::string& uniformName, const glm::vec3& value);
+	void setVec4f(const std::string& uniformName, const glm::vec4& value);
+	void setMat3(const std::string& uniformName, const glm::mat3& matrix);
+	void setMat4(const std::string& uniformName, const glm::mat4& matrix);
 
 private:
 	std::string parseFile(const std::string& file);

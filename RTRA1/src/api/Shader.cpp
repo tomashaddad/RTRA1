@@ -134,14 +134,44 @@ void Shader::unbind() const {
 	glUseProgram(0);
 }
 
-GLint Shader::getUniform(const std::string& name) {
-	return GLint();
-}
-
 const GLuint Shader::getID() const {
 	return m_programID;
 }
 
-void Shader::setMat4(const std::string& uniformName, const glm::mat4& m) {
-	glUniformMatrix4fv(glGetUniformLocation(m_programID, uniformName.c_str()), 1, GL_FALSE, &m[0][0]);
+GLint Shader::getUniformLocation(const std::string& uniformName) {
+	GLint location = glGetUniformLocation(m_programID, uniformName.c_str());
+
+	if (location == -1) {
+		std::cerr << uniformName << " could not be found" << std::endl;
+	}
+
+	return location;
+}
+
+void Shader::setInt(const std::string& uniformName, int value) {
+	glUniform1i(getUniformLocation(uniformName), value);
+}
+
+void Shader::setFloat(const std::string& uniformName, float value) {
+	glUniform1f(getUniformLocation(uniformName), value);
+}
+
+void Shader::setVec2f(const std::string& uniformName, const glm::vec2& value) {
+	glUniform2f(getUniformLocation(uniformName), value.x, value.y);
+}
+
+void Shader::setVec3f(const std::string& uniformName, const glm::vec3& value) {
+	glUniform3f(getUniformLocation(uniformName), value.x, value.y, value.z);
+}
+
+void Shader::setVec4f(const std::string& uniformName, const glm::vec4& value) {
+	glUniform4f(getUniformLocation(uniformName), value.x, value.y, value.z, value.w);
+}
+
+void Shader::setMat3(const std::string& uniformName, const glm::mat3& matrix) {
+	glUniformMatrix3fv(getUniformLocation(uniformName), 1, GL_FALSE, &matrix[0][0]);
+}
+
+void Shader::setMat4(const std::string& uniformName, const glm::mat4& matrix) {
+	glUniformMatrix4fv(getUniformLocation(uniformName), 1, GL_FALSE, &matrix[0][0]);
 }

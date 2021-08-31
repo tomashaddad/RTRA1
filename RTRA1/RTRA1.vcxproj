@@ -159,7 +159,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\scene\Scene00.cpp" />
     <ClCompile Include="src\api\Shader.cpp" />
@@ -178,12 +177,11 @@
     <ClCompile Include="src\SDLManager.cpp" />
     <ClCompile Include="src\api\VAO.cpp" />
     <ClCompile Include="src\api\VBO.cpp" />
+    <ClCompile Include="src\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\InputManager.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\scene\Scene00.h" />
-    <ClInclude Include="src\api\Container.h" />
     <ClInclude Include="src\api\Shader.h" />
     <ClInclude Include="src\dependencies\gltext.h" />
     <ClInclude Include="src\scene\Scene03.h" />
@@ -482,6 +480,7 @@
     <ClInclude Include="src\SDLManager.h" />
     <ClInclude Include="src\api\VAO.h" />
     <ClInclude Include="src\api\VBO.h" />
+    <ClInclude Include="src\Text.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\dependencies\glm\detail\func_common.inl" />
@@ -620,8 +619,10 @@
     <None Include="src\dependencies\glm\gtx\vector_angle.inl" />
     <None Include="src\dependencies\glm\gtx\vector_query.inl" />
     <None Include="src\dependencies\glm\gtx\wrap.inl" />
-    <None Include="src\shaders\scene00\triangle.frag" />
-    <None Include="src\shaders\scene00\triangle.vert" />
+    <None Include="src\shaders\scene00\lighting.frag" />
+    <None Include="src\shaders\scene00\lighting.vert" />
+    <None Include="src\shaders\scene00\cube.frag" />
+    <None Include="src\shaders\scene00\cube.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

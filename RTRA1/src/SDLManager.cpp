@@ -4,6 +4,7 @@
 
 #include "GLException.h"
 
+#include <sstream>
 #include <iostream>
 
 void GLAPIENTRY
@@ -61,6 +62,8 @@ bool SDLManager::initSDL() {
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG);
 
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+
 	return true;
 }
 
@@ -106,6 +109,27 @@ void SDLManager::swapBuffers() const {
 	SDL_GL_SwapWindow(m_sdl.window);
 }
 
+
+void SDLManager::enableCoreProfile() const {
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+}
+
+void SDLManager::enableCompatibilityProfile() const {
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
+}
+
+void SDLManager::update() {
+	int width;
+	int height;
+	SDL_GetWindowSize(m_sdl.window, &width, &height);
+	m_window.width = width;
+	m_window.height = height;
+
+	glViewport(0, 0, m_window.width, m_window.height);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
 float const SDLManager::getTimeElapsed() {
 	m_timer.time = SDL_GetTicks() / 1000.0f;
 	return m_timer.time;
@@ -116,10 +140,22 @@ float const SDLManager::getFrameDeltaTime() {
 	return m_timer.deltaTime;
 }
 
-const unsigned int SDLManager::getWindowWidth() const {
+const unsigned int& SDLManager::getWindowWidth() const {
 	return m_window.width;
 }
 
-const unsigned int SDLManager::getWindowHeight() const {
+const unsigned int& SDLManager::getWindowHeight() const {
 	return m_window.height;
+}
+
+const unsigned int SDLManager::getFPS() const {
+	SDL_DisplayMode current;
+	int should_be_zero = SDL_GetCurrentDisplayMode(SDL_GetWindowID(m_sdl.window), &current);
+
+	if (should_be_zero != 0) {
+		SDL_Log("Could not get display mode for video display: %s", SDL_GetError());
+		return 0;
+	}
+
+	return current.refresh_rate;
 }

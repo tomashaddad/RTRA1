@@ -11,49 +11,32 @@
 #include "scene/Scene05.h"
 #include "scene/Scene06.h"
 
-#define GLT_IMPLEMENTATION
-#include "dependencies/gltext.h"
-
 RTRApp* RTRApp::m_instance = nullptr;
 
 RTRApp::RTRApp(const std::string& title, unsigned int width, unsigned int height, bool fullscreen)
 	: m_sdlManager(std::make_unique<SDLManager>(title, width, height, fullscreen))
 	, m_glManager(std::make_unique<GLManager>())
-	, m_inputManager(std::make_unique<InputManager>())
-	, m_camera(std::make_unique<Camera>())
+	, m_camera(std::make_unique<Camera>(45.0f, 0.1f, 100.0f))
 	, m_state(State::GOOD)
-	, m_currentScene(0)
+	, m_currentSceneNumber(1)
+	, m_currentScene(std::make_unique<Scene00>())
+	, m_text(std::make_unique<Text>())
 {
 	m_instance = this;
-
-	m_glManager->enableDepthTesting(true);
-	m_glManager->cullBackFaces(true);
-
-	// simple scene with cube, lights and text for testing
-	m_scenes[0] = std::make_unique<Scene00>();
-
-	// actual scenes for the assignment
-	m_scenes[1] = std::make_unique<Scene01>();
-	m_scenes[2] = std::make_unique<Scene02>();
-	m_scenes[3] = std::make_unique<Scene03>();
-	m_scenes[4] = std::make_unique<Scene04>();
-	m_scenes[5] = std::make_unique<Scene05>();
-	m_scenes[6] = std::make_unique<Scene06>();
-
-	// TODO: PUT THIS SOMEWHERE ELSE?
-	const float aspect = static_cast<float>(m_sdlManager->getWindowWidth()) /
-						 static_cast<float>(m_sdlManager->getWindowHeight());
-	m_camera->setPerspectiveMatrix(45.0f, aspect, 0.1f, 100.0f);
-
-	m_scenes[m_currentScene]->init();
 }
 
 void RTRApp::run() {
+	m_currentScene->init();
+
 	while (m_state != State::QUIT) {
+		m_sdlManager->update();
+
 		checkInput();
+
 		float dt = m_sdlManager->getFrameDeltaTime();
-		updateState(dt);
 		renderFrame(dt);
+
+		m_sdlManager->swapBuffers();
 	}
 }
 
@@ -61,47 +44,125 @@ void RTRApp::checkInput() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
-		case SDL_QUIT:
-			m_state = State::QUIT;
-			break;
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym) {
-			case SDLK_ESCAPE:
+			case SDL_QUIT:
 				m_state = State::QUIT;
 				break;
-			case SDLK_w:
-				std::cout << "W" << std::endl;
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym) {
+				case SDLK_0:
+					switchToScene(0);
+					break;
+				case SDLK_1:
+					switchToScene(1);
+					break;
+				case SDLK_2:
+					switchToScene(2);
+					break;
+				case SDLK_3:
+					switchToScene(3);
+					break;
+				case SDLK_4:
+					switchToScene(4);
+					break;
+				case SDLK_5:
+					switchToScene(5);
+					break;
+				case SDLK_6:
+					switchToScene(6);
+					break;
+				case SDLK_w:
+					getCamera()->moveForward();
+					break;
+				case SDLK_s:
+					getCamera()->moveBackward();
+					break;
+				case SDLK_a:
+					getCamera()->rollLeft();
+					break;
+				case SDLK_c:
+					getGLManager()->toggleBackFaceCulling();
+					break;
+				case SDLK_d:
+					getCamera()->rollRight();
+					break;
+				case SDLK_h:
+					getText()->toggleFPSMode();
+					break;
+				case SDLK_z:
+					getGLManager()->toggleDepthTesting();
+					break;
+				case SDLK_ESCAPE:
+					m_state = State::QUIT;
+					break;
+				}
 				break;
-			}
+			case SDL_MOUSEMOTION:
+				getCamera()->yaw(event.motion.xrel);
+				getCamera()->pitch(event.motion.yrel);
+				break;
 		}
 	}
 }
 
-void RTRApp::updateState(float dt) {
+void RTRApp::switchToScene(unsigned int sceneNumber) {
+	if (m_currentSceneNumber == sceneNumber) {
+		return; // do not re-render the same scene
+	}
 
+	switch (sceneNumber) {
+	case 0:
+		m_currentScene = std::make_unique<Scene00>();
+		break;
+	case 1:
+		m_currentScene = std::make_unique<Scene01>();
+		break;
+	case 2:
+		m_currentScene = std::make_unique<Scene02>();
+		break;
+	case 3:
+		m_currentScene = std::make_unique<Scene03>();
+		break;
+	case 4:
+		m_currentScene = std::make_unique<Scene04>();
+		break;
+	case 5:
+		m_currentScene = std::make_unique<Scene05>();
+		break;
+	case 6:
+		m_currentScene = std::make_unique<Scene06>();
+		break;
+	}
+
+	m_currentSceneNumber = sceneNumber;
+	m_currentScene->init();
 }
 
 void RTRApp::renderFrame(float dt) {
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	m_scenes[m_currentScene]->render();
-
-	m_sdlManager->swapBuffers();
+	m_text->render();
+	m_currentScene->render();
 }
 
-const SDLManager* RTRApp::getSDLManager() const {
+void RTRApp::quit() {
+	m_state = State::QUIT;
+	gltTerminate();
+}
+
+SDLManager* RTRApp::getSDLManager() const {
 	return m_sdlManager.get();
 }
 
-const GLManager* RTRApp::getGLManager() const {
+GLManager* RTRApp::getGLManager() const {
 	return m_glManager.get();
 }
 
-const InputManager* RTRApp::getInputManager() const {
-	return m_inputManager.get();
+Camera* RTRApp::getCamera() const {
+	return m_camera.get();
 }
 
-const Camera* RTRApp::getCamera() const {
-	return m_camera.get();
+Text* RTRApp::getText() const {
+	return m_text.get();
+}
+
+const unsigned int& RTRApp::getCurrentSceneNumber() const {
+	return m_currentSceneNumber;
 }

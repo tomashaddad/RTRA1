@@ -4,10 +4,11 @@
 
 class GLManager {
 public:
-	void enableDepthTesting(bool enable);
-	void cullBackFaces(bool cull);
+	GLManager();
+	void toggleDepthTesting();
+	void toggleBackFaceCulling();
 
 private:
-	bool m_depthTesting = false;
-	bool m_cullingBackFace = false;
+	bool m_depthTesting;
+	bool m_cullBackFace;
 };
