@@ -55,3 +55,15 @@ glm::mat4 Camera::getProjectionMatrix() const {
 glm::mat4 Camera::getViewProjectionMatrix() const {
 	return getProjectionMatrix() * getViewMatrix();
 }
+
+const float& Camera::getFOV() const {
+	return m_fov;
+}
+
+const float& Camera::getNearPlane() const {
+	return m_near;
+}
+
+const float& Camera::getFarPlane() const {
+	return m_far;
+}

@@ -29,8 +29,10 @@ public:
 	bool initialise();
 
 	void swapBuffers() const;
-	void enableCoreProfile() const;
-	void enableCompatibilityProfile() const;
+
+	// Doesn't seem to work
+	//void enableCoreProfile() const;
+	//void enableCompatibilityProfile() const;
 
 	void update();
 

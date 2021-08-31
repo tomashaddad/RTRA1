@@ -26,10 +26,15 @@ public:
 	void yaw(signed int degree);
 	void pitch(signed int degree);
 
+public:
 	glm::vec3 getPosition() const;
 	glm::mat4 getViewMatrix() const;
 	glm::mat4 getProjectionMatrix() const;
 	glm::mat4 getViewProjectionMatrix() const;
+
+	const float& getFOV() const;
+	const float& getNearPlane() const;
+	const float& getFarPlane() const;
 
 private:
 	float m_fov;
