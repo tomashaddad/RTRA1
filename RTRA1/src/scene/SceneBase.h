@@ -4,6 +4,8 @@
 #include <vector>
 #include <array>
 
+#include "Triangle.h"
+
 class SceneBase {
 public:
 	SceneBase();
@@ -17,6 +19,8 @@ protected:
 
 	std::vector<glm::vec3> m_vertices;
 	std::vector<unsigned int> m_indices;
+
+	std::vector<Triangle> m_triangles;
 
 	const std::array<unsigned int, 36> m_baseIndices =
 	  { 0, 2, 1,

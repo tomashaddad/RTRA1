@@ -19,7 +19,7 @@ RTRApp::RTRApp(const std::string& title, unsigned int width, unsigned int height
 	, m_camera(std::make_unique<Camera>(45.0f, 0.1f, 100.0f))
 	, m_state(State::GOOD)
 	, m_currentSceneNumber(1)
-	, m_currentScene(std::make_unique<Scene00>())
+	, m_currentScene(std::make_unique<Scene01>())
 	, m_text(std::make_unique<Text>())
 {
 	m_instance = this;

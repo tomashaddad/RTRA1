@@ -179,6 +179,7 @@
     <ClCompile Include="src\api\VAO.cpp" />
     <ClCompile Include="src\api\VBO.cpp" />
     <ClCompile Include="src\Text.cpp" />
+    <ClCompile Include="src\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera.h" />
@@ -482,6 +483,7 @@
     <ClInclude Include="src\api\VAO.h" />
     <ClInclude Include="src\api\VBO.h" />
     <ClInclude Include="src\Text.h" />
+    <ClInclude Include="src\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\dependencies\glm\detail\func_common.inl" />

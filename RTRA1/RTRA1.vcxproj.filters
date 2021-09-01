@@ -75,6 +75,9 @@
     <ClCompile Include="src\scene\SceneBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Triangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\dependencies\glm\detail\_features.hpp">
@@ -978,6 +981,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

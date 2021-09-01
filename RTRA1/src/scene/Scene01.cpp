@@ -3,6 +3,7 @@
 #include "RTRApp.h"
 
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/normal.hpp>
 #include "Camera.h"
 
 void Scene01::init() {
@@ -18,19 +19,19 @@ void Scene01::init() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHTING);
 
-	//// directional light source
-	//float ambient0[] = { 0.0, 0.0, 0.0, 1.0 };
-	//float diffuse0[] = { 1.0, 1.0, 1.0, 1.0 };
-	//float specular0[] = { 1.0, 1.0, 1.0, 1.0 };
-	//float position0[] = { 1.0, 0.0, 0.0, 0.0 };
+	// directional light source
+	float ambient0[] = { 0.0, 0.0, 0.0, 1.0 };
+	float diffuse0[] = { 1.0, 1.0, 1.0, 1.0 };
+	float specular0[] = { 1.0, 1.0, 1.0, 1.0 };
+	float position0[] = { 1.0, 0.0, 0.0, 0.0 };
 
-	//glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
-	//glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
-	//glLightfv(GL_LIGHT0, GL_SPECULAR, specular0);
-	//glLightfv(GL_LIGHT0, GL_POSITION, position0);
-	//glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0);
+	glLightfv(GL_LIGHT0, GL_POSITION, position0);
+	glEnable(GL_LIGHT0);
 }
 
 // take index, mod by 36, divide the result by 3
@@ -48,9 +49,14 @@ void Scene01::render() {
 	glScalef(10.0f, 10.0f, 10.0f);
 		glBegin(GL_TRIANGLES);
 		for (int index = 0; index < m_indices.size() - 3; index += 3) {
-			glVertex3f(m_vertices[m_indices[index + 0]].x, m_vertices[m_indices[index + 0]].y, m_vertices[m_indices[index + 0]].z);
-			glVertex3f(m_vertices[m_indices[index + 1]].x, m_vertices[m_indices[index + 1]].y, m_vertices[m_indices[index + 1]].z);
-			glVertex3f(m_vertices[m_indices[index + 2]].x, m_vertices[m_indices[index + 2]].y, m_vertices[m_indices[index + 2]].z);
+			glm::vec3& p1 = m_vertices[m_indices[index + 0]];
+			glm::vec3& p2 = m_vertices[m_indices[index + 1]];
+			glm::vec3& p3 = m_vertices[m_indices[index + 2]];
+			glm::vec3 normal = glm::normalize(glm::triangleNormal(p1, p2, p3));
+			glNormal3f(normal.x, normal.y, normal.z);
+			glVertex3f(p1.x, p1.y, p1.z);
+			glVertex3f(p2.x, p2.y, p2.z);
+			glVertex3f(p3.x, p3.y, p3.z);
 		}
 		glEnd();
 	glPopMatrix();
