@@ -48,10 +48,10 @@ void Scene01::render() {
 	glPushMatrix();
 	glScalef(10.0f, 10.0f, 10.0f);
 		glBegin(GL_TRIANGLES);
-		for (int index = 0; index < m_indices.size() - 3; index += 3) {
-			glm::vec3& p1 = m_vertices[m_indices[index + 0]];
-			glm::vec3& p2 = m_vertices[m_indices[index + 1]];
-			glm::vec3& p3 = m_vertices[m_indices[index + 2]];
+		for (int index = 0; index < m_menger.indices.size() - 3; index += 3) {
+			glm::vec3& p1 = m_menger.vertices[m_menger.indices[index + 0]];
+			glm::vec3& p2 = m_menger.vertices[m_menger.indices[index + 1]];
+			glm::vec3& p3 = m_menger.vertices[m_menger.indices[index + 2]];
 			glm::vec3 normal = glm::normalize(glm::triangleNormal(p1, p2, p3));
 			glNormal3f(normal.x, normal.y, normal.z);
 			glVertex3f(p1.x, p1.y, p1.z);

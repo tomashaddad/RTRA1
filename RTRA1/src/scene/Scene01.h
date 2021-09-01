@@ -12,4 +12,3 @@ public:
 private:
 	void perspective(GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar);
 };
-

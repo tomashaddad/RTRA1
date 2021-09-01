@@ -20,20 +20,21 @@ void Text::update() const {
 	std::stringstream text;
 
 	const RTRApp& instance = RTRApp::instance();
-	const unsigned int& fps = instance.getSDLManager()->getFPS();
+	const unsigned int& fps = static_cast<unsigned int>(instance.getFPSTimer()->getAverageFPS());
 
 	if (m_fpsMode) {
 		text << fps << " FPS";
 	}
 	else {
+		const unsigned int& refreshRate = instance.getSDLManager()->getRefreshRate();
 		const unsigned int& scene = instance.getCurrentSceneNumber();
 		const int& width = instance.getSDLManager()->getWindowWidth();
 		const int& height = instance.getSDLManager()->getWindowHeight();
 
 		text
 		<< "Scene: "	<< scene << std::endl
-		<< "Display: "  << width << " x " << height << "(" << fps << " Hz)" << std::endl;
-
+		<< "Display: "  << width << " x " << height << "(" << refreshRate << " Hz)" << std::endl
+		<< "FPS: " << fps << std::endl;
 	}
 
 	gltSetText(m_text, text.str().c_str());

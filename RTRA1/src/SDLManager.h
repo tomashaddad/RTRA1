@@ -4,7 +4,7 @@
 
 #include <string>
 
-struct Timer {
+struct DeltaTimer {
 	float time = 0;
 	float deltaTime = 0;
 };
@@ -34,7 +34,7 @@ public:
 	//void enableCoreProfile() const;
 	//void enableCompatibilityProfile() const;
 
-	void update();
+	void updateWindow();
 
 public:
 	const float getTimeElapsed();
@@ -43,8 +43,10 @@ public:
 	const unsigned int& getWindowWidth() const;
 	const unsigned int& getWindowHeight() const;
 
-	const unsigned int getFPS() const;
+	const unsigned int& getRefreshRate() const;
 
+	const unsigned int& getPerformanceCounter() const;
+	const unsigned int& getPerformanceFrequency() const;
 
 private:
 	bool initSDL();
@@ -54,7 +56,7 @@ private:
 
 private:
 	Window m_window;
-	Timer m_timer;
+	DeltaTimer m_deltaTimer;
 	SDL m_sdl;
 };
 

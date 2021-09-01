@@ -4,7 +4,10 @@
 #include <vector>
 #include <array>
 
-#include "Triangle.h"
+struct Menger {
+	std::vector<glm::vec3> vertices;
+	std::vector<unsigned int> indices;
+};
 
 class SceneBase {
 public:
@@ -13,26 +16,22 @@ public:
 	virtual void render() = 0;
 	virtual void quit() = 0;
 
+	virtual void incrementSubdivisions();
+	virtual void decrementSubdivisions();
+
 protected:
 	virtual void recursiveMenger(float x, float y, float z, float edgeLength, int currentDivisions, int maxSubdivisions);
 	virtual void generateCubeVerticesAt(float x, float y, float z, float edgeLength);
 
-	std::vector<glm::vec3> m_vertices;
-	std::vector<unsigned int> m_indices;
+	unsigned int m_maxSubvisions;
+	float m_edgeLength;
 
-	std::vector<Triangle> m_triangles;
+	Menger m_menger;
 
-	const std::array<unsigned int, 36> m_baseIndices =
-	  { 0, 2, 1,
-		1, 2, 3,
-		1, 3, 5,
-		5, 3, 7,
-		5, 7, 4,
-		4, 7, 6,
-		4, 6, 0,
-		0, 6, 2,
-		4, 0, 5,
-		5, 0, 1,
-		2, 6, 3,
-		3, 6, 7 };
+	//std::vector<glm::vec3> m_vertices;
+	//std::vector<unsigned int> m_indices;
+	const std::array<unsigned int, 36> m_baseIndices;
+
+private:
+	void clear();
 };

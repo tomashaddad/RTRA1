@@ -3,13 +3,16 @@
 #include <iostream>
 
 #include "GLException.h"
+
 #include "scene/Scene00.h"
 #include "scene/Scene01.h"
-#include "scene/Scene02.h"
-#include "scene/Scene03.h"
-#include "scene/Scene04.h"
-#include "scene/Scene05.h"
-#include "scene/Scene06.h"
+//#include "scene/Scene02.h"
+//#include "scene/Scene03.h"
+//#include "scene/Scene04.h"
+//#include "scene/Scene05.h"
+//#include "scene/Scene06.h"
+
+#include "FPSTimer.h"
 
 RTRApp* RTRApp::m_instance = nullptr;
 
@@ -20,6 +23,7 @@ RTRApp::RTRApp(const std::string& title, unsigned int width, unsigned int height
 	, m_state(State::GOOD)
 	, m_currentSceneNumber(1)
 	, m_currentScene(std::make_unique<Scene01>())
+	, m_fpsTimer(std::make_unique<FPSTimer>())
 	, m_text(std::make_unique<Text>())
 {
 	m_instance = this;
@@ -28,15 +32,23 @@ RTRApp::RTRApp(const std::string& title, unsigned int width, unsigned int height
 void RTRApp::run() {
 	m_currentScene->init();
 
+	unsigned int start = 0;
+	unsigned int end = 0;
+	unsigned int counter = 0;
+	float runningFps = 0;
+
 	while (m_state != State::QUIT) {
-		m_sdlManager->update();
+		getFPSTimer()->start();
 
 		checkInput();
 
-		float dt = m_sdlManager->getFrameDeltaTime();
+		float dt = getSDLManager()->getFrameDeltaTime();
 		renderFrame(dt);
 
-		m_sdlManager->swapBuffers();
+		getSDLManager()->swapBuffers();
+		getSDLManager()->updateWindow();
+
+		getFPSTimer()->end();
 	}
 }
 
@@ -94,6 +106,23 @@ void RTRApp::checkInput() {
 				case SDLK_z:
 					getGLManager()->toggleDepthTesting();
 					break;
+				case SDLK_l:
+					// TOGGLE LIGHTING
+					break;
+				case SDLK_LESS:
+				case SDLK_COMMA:
+					// DECREMENT LIGHTS
+					break;
+				case SDLK_GREATER:
+				case SDLK_PERIOD:
+					// INCREMENT LIGHTS
+					break;
+				case SDLK_EQUALS:
+					m_currentScene->incrementSubdivisions();
+					break;
+				case SDLK_MINUS:
+					m_currentScene->decrementSubdivisions();
+					break;
 				case SDLK_ESCAPE:
 					m_state = State::QUIT;
 					break;
@@ -119,20 +148,20 @@ void RTRApp::switchToScene(unsigned int sceneNumber) {
 	case 1:
 		m_currentScene = std::make_unique<Scene01>();
 		break;
-	case 2:
-		m_currentScene = std::make_unique<Scene02>();
-		break;
-	case 3:
-		m_currentScene = std::make_unique<Scene03>();
-		break;
-	case 4:
-		m_currentScene = std::make_unique<Scene04>();
-		break;
-	case 5:
-		m_currentScene = std::make_unique<Scene05>();
-		break;
-	case 6:
-		m_currentScene = std::make_unique<Scene06>();
+	//case 2:
+	//	m_currentScene = std::make_unique<Scene02>();
+	//	break;
+	//case 3:
+	//	m_currentScene = std::make_unique<Scene03>();
+	//	break;
+	//case 4:
+	//	m_currentScene = std::make_unique<Scene04>();
+	//	break;
+	//case 5:
+	//	m_currentScene = std::make_unique<Scene05>();
+	//	break;
+	//case 6:
+	//	m_currentScene = std::make_unique<Scene06>();
 		break;
 	}
 
@@ -164,6 +193,10 @@ Camera* RTRApp::getCamera() const {
 
 Text* RTRApp::getText() const {
 	return m_text.get();
+}
+
+FPSTimer* RTRApp::getFPSTimer() const {
+	return m_fpsTimer.get();
 }
 
 const unsigned int& RTRApp::getCurrentSceneNumber() const {

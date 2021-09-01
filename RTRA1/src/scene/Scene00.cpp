@@ -19,7 +19,6 @@ Scene00::Scene00()
     , m_cubeShader("./src/shaders/scene00/cube.vert", "./src/shaders/scene00/cube.frag")
     , m_lightShader("./src/shaders/scene00/lighting.vert", "./src/shaders/scene00/lighting.frag") {}
 
-
 Scene00::~Scene00() {
     std::cout << "Destructor called!" << std::endl;
 }

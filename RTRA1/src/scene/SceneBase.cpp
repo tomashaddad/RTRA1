@@ -5,8 +5,33 @@
 
 #include <glm/gtx/normal.hpp>
 
-SceneBase::SceneBase() {
-	recursiveMenger(0, 0, 0, 1, 0, 3);
+SceneBase::SceneBase()
+	: m_maxSubvisions(1)
+	, m_edgeLength(1)
+	, m_baseIndices({
+		0, 2, 1, 1, 2, 3,	// +z
+		1, 3, 5, 5, 3, 7,	// +x
+		5, 7, 4, 4, 7, 6,	// -z
+		4, 6, 0, 0, 6, 2,	// -x
+		4, 0, 5, 5, 0, 1,	// +y
+		2, 6, 3, 3, 6, 7	// -y
+	})	
+{
+	recursiveMenger(0, 0, 0, m_edgeLength, 0, m_maxSubvisions);
+}
+
+void SceneBase::incrementSubdivisions() {
+	clear();
+	recursiveMenger(0, 0, 0, m_edgeLength, 0, ++m_maxSubvisions);
+}
+
+void SceneBase::decrementSubdivisions() {
+	if (m_maxSubvisions <= 0) {
+		return;
+	}
+	std::cout << "Decrementing!" << std::endl;
+	clear();
+	recursiveMenger(0, 0, 0, m_edgeLength, 0, --m_maxSubvisions);
 }
 
 void SceneBase::recursiveMenger(float x, float y, float z, float edgeLength, int currentSubdivision, int maxSubdivisions) {
@@ -40,17 +65,17 @@ void SceneBase::recursiveMenger(float x, float y, float z, float edgeLength, int
 // to one of the corners, half the edge length is needed (here named offset)
 void SceneBase::generateCubeVerticesAt(float x, float y, float z, float offset) {
 	// top left, top right, bottom left, bottom right, front (+z) to back (-z)
-	m_vertices.emplace_back(x - offset, y + offset, z + offset);
-	m_vertices.emplace_back(x + offset, y + offset, z + offset);
-	m_vertices.emplace_back(x - offset, y - offset, z + offset);
-	m_vertices.emplace_back(x + offset, y - offset, z + offset);
-	m_vertices.emplace_back(x - offset, y + offset, z - offset);
-	m_vertices.emplace_back(x + offset, y + offset, z - offset);
-	m_vertices.emplace_back(x - offset, y - offset, z - offset);
-	m_vertices.emplace_back(x + offset, y - offset, z - offset);
+	m_menger.vertices.emplace_back(x - offset, y + offset, z + offset);
+	m_menger.vertices.emplace_back(x + offset, y + offset, z + offset);
+	m_menger.vertices.emplace_back(x - offset, y - offset, z + offset);
+	m_menger.vertices.emplace_back(x + offset, y - offset, z + offset);
+	m_menger.vertices.emplace_back(x - offset, y + offset, z - offset);
+	m_menger.vertices.emplace_back(x + offset, y + offset, z - offset);
+	m_menger.vertices.emplace_back(x - offset, y - offset, z - offset);
+	m_menger.vertices.emplace_back(x + offset, y - offset, z - offset);
 
 	for (const unsigned int& baseIndex : m_baseIndices) {
-		m_indices.emplace_back(baseIndex + 8 * (m_vertices.size() / 8 - 1));
+		m_menger.indices.emplace_back(baseIndex + 8 * (m_menger.vertices.size() / 8 - 1));
 	}
 
 	//unsigned int multiplier = 8 * (m_vertices.size() / 8 - 1);
@@ -70,3 +95,8 @@ void SceneBase::generateCubeVerticesAt(float x, float y, float z, float offset) 
 
 // 0 2 1, 1 2 3, 1 3 5, 5 3 7, 5 7 4, 4 7 6, 4 6 0, 0 6 2, 4 0 5, 5 0 1, 2 6 3, 3 6 7
 // add them in order, multiply by 8 * the number of cubes already inserted into vector then add that to the number
+
+void SceneBase::clear() {
+	m_menger.vertices.clear();
+	m_menger.indices.clear();
+}

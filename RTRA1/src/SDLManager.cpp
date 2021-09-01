@@ -109,7 +109,6 @@ void SDLManager::swapBuffers() const {
 	SDL_GL_SwapWindow(m_sdl.window);
 }
 
-
 // Doesn't seem to work
 
 //void SDLManager::enableCoreProfile() const {
@@ -120,7 +119,7 @@ void SDLManager::swapBuffers() const {
 //	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
 //}
 
-void SDLManager::update() {
+void SDLManager::updateWindow() {
 	int width;
 	int height;
 	SDL_GetWindowSize(m_sdl.window, &width, &height);
@@ -133,13 +132,13 @@ void SDLManager::update() {
 }
 
 float const SDLManager::getTimeElapsed() {
-	m_timer.time = SDL_GetTicks() / 1000.0f;
-	return m_timer.time;
+	m_deltaTimer.time = SDL_GetTicks() / 1000.0f;
+	return m_deltaTimer.time;
 }
 
 float const SDLManager::getFrameDeltaTime() {
-	m_timer.deltaTime = getTimeElapsed() - m_timer.time;
-	return m_timer.deltaTime;
+	m_deltaTimer.deltaTime = getTimeElapsed() - m_deltaTimer.time;
+	return m_deltaTimer.deltaTime;
 }
 
 const unsigned int& SDLManager::getWindowWidth() const {
@@ -150,7 +149,7 @@ const unsigned int& SDLManager::getWindowHeight() const {
 	return m_window.height;
 }
 
-const unsigned int SDLManager::getFPS() const {
+const unsigned int& SDLManager::getRefreshRate() const {
 	SDL_DisplayMode current;
 	int should_be_zero = SDL_GetCurrentDisplayMode(SDL_GetWindowID(m_sdl.window), &current);
 
@@ -160,4 +159,12 @@ const unsigned int SDLManager::getFPS() const {
 	}
 
 	return current.refresh_rate;
+}
+
+const unsigned int& SDLManager::getPerformanceCounter() const {
+	return SDL_GetPerformanceCounter();
+}
+
+const unsigned int& SDLManager::getPerformanceFrequency() const {
+	return SDL_GetPerformanceFrequency();
 }
