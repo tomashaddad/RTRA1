@@ -16,19 +16,19 @@ Camera::Camera(float fov, float near, float far)
 	, m_mouseSpeed(0.001) {}
 
 void Camera::moveForward(const float dt) {
-	m_position += m_rotation * glm::vec3(0.0f, 0.0f, m_movementSpeed * dt);
-}
-
-void Camera::moveBackward(const float dt) {
 	m_position += m_rotation * glm::vec3(0.0f, 0.0f, -m_movementSpeed * dt);
 }
 
+void Camera::moveBackward(const float dt) {
+	m_position += m_rotation * glm::vec3(0.0f, 0.0f, m_movementSpeed * dt);
+}
+
 void Camera::strafeLeft(const float dt) {
-	m_position += m_rotation * glm::vec3(m_movementSpeed * dt, 0.0f, 0.0f);
+	m_position += m_rotation * glm::vec3(-m_movementSpeed * dt, 0.0f, 0.0f);
 }
 
 void Camera::strafeRight(const float dt) {
-	m_position += m_rotation * glm::vec3(-m_movementSpeed * dt, 0.0f, 0.0f);
+	m_position += m_rotation * glm::vec3(m_movementSpeed * dt, 0.0f, 0.0f);
 }
 
 void Camera::yaw(signed int degree) {
@@ -58,7 +58,7 @@ glm::vec3 Camera::getPosition() const {
 
 glm::mat4 Camera::getViewMatrix() const {
 	auto mat4rotation = glm::toMat4(glm::inverse(m_rotation));
-	auto translation = glm::translate(glm::mat4(1.0f), m_position + glm::vec3(0.0, 0.0, -10.0f));
+	auto translation = glm::translate(glm::mat4(1.0f), -m_position);
 	return mat4rotation * translation;
 }
 
@@ -68,9 +68,9 @@ glm::mat4 Camera::getProjectionMatrix() const {
 	return glm::perspective(glm::radians(m_fov), width / height, m_near, m_far);
 }
 
-glm::mat4 Camera::getViewProjectionMatrix() const {
-	return getProjectionMatrix() * getViewMatrix();
-}
+//glm::mat4 Camera::getViewProjectionMatrix() const {
+//	return getProjectionMatrix() * getViewMatrix();
+//}
 
 const float& Camera::getFOV() const {
 	return m_fov;

@@ -69,6 +69,9 @@
     <ClCompile Include="src\MaterialFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\Scene02.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\dependencies\glm\detail\_features.hpp">
@@ -968,6 +971,9 @@
     <ClInclude Include="src\MaterialFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene\Scene02.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\dependencies\glm\detail\func_common.inl">
@@ -1381,6 +1387,10 @@
     <None Include="src\shaders\scene00\lighting.frag" />
     <None Include="src\shaders\scene00\lighting.vert" />
     <None Include="src\shaders\scene00\cube.vert" />
-    <None Include="src\shaders\scene00\cube.frag" />
+    <None Include="src\shaders\scene00\cube_phong.frag" />
+    <None Include="src\shaders\scene02\menger.frag" />
+    <None Include="src\shaders\scene02\menger.vert" />
+    <None Include="src\shaders\scene02\menger.geom" />
+    <None Include="src\shaders\scene00\cube_blinnphong.frag" />
   </ItemGroup>
 </Project>

@@ -120,7 +120,7 @@ std::string Shader::parseFile(const std::string& file) {
 }
 
 Shader::~Shader() {
-	//glDeleteProgram(m_programID);
+	glDeleteProgram(m_programID);
 }
 
 bool Shader::bind() const {

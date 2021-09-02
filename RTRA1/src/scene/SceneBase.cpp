@@ -20,6 +20,10 @@ SceneBase::SceneBase()
 	recursiveMenger(0, 0, 0, m_edgeLength, 0, m_maxSubvisions);
 }
 
+SceneBase::~SceneBase() {
+	clear();
+}
+
 void SceneBase::incrementSubdivisions() {
 	clear();
 	recursiveMenger(0, 0, 0, m_edgeLength, 0, ++m_maxSubvisions);
@@ -29,13 +33,11 @@ void SceneBase::decrementSubdivisions() {
 	if (m_maxSubvisions <= 0) {
 		return;
 	}
-	std::cout << "Decrementing!" << std::endl;
 	clear();
 	recursiveMenger(0, 0, 0, m_edgeLength, 0, --m_maxSubvisions);
 }
 
 void SceneBase::recursiveMenger(float x, float y, float z, float edgeLength, int currentSubdivision, int maxSubdivisions) {
-
 	if (maxSubdivisions == 0) {
 		generateCubeVerticesAt(0, 0, 0, edgeLength / 2.0f);
 		return;

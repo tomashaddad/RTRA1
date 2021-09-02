@@ -13,20 +13,18 @@
 #include <glm/gtx/quaternion.hpp>
 
 Scene00::Scene00()
-    : VBO(0)
-    , cubeVAO(0)
-    , lightCubeVAO(0)
-    , m_cubeShader("./src/shaders/scene00/cube.vert", "./src/shaders/scene00/cube.frag")
+    : m_VBO(0)
+    , m_cubeVAO(0)
+    , m_lightCubeVAO(0)
+    , m_cubeShader("./src/shaders/scene00/cube.vert", "./src/shaders/scene00/cube_blinnphong.frag")
     , m_lightShader("./src/shaders/scene00/lighting.vert", "./src/shaders/scene00/lighting.frag") {}
 
 Scene00::~Scene00() {
-    std::cout << "Destructor called!" << std::endl;
+    std::cout << "Scene00 destructor called!" << std::endl;
 }
 
 void Scene00::init() {
-    m_cubeShader = Shader("./src/shaders/scene00/cube.vert", "./src/shaders/scene00/cube.frag");
-    m_lightShader = Shader("./src/shaders/scene00/lighting.vert", "./src/shaders/scene00/lighting.frag");
-
+    // these vertices are from the book; their winding order is wrong
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
          0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -71,13 +69,13 @@ void Scene00::init() {
         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
     };
 
-    glGenVertexArrays(1, &cubeVAO);
-    glGenBuffers(1, &VBO);
+    glGenVertexArrays(1, &m_cubeVAO);
+    glGenBuffers(1, &m_VBO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glBindVertexArray(cubeVAO);
+    glBindVertexArray(m_cubeVAO);
 
     // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
@@ -86,21 +84,25 @@ void Scene00::init() {
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-
     // second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
-    glGenVertexArrays(1, &lightCubeVAO);
-    glBindVertexArray(lightCubeVAO);
+    glGenVertexArrays(1, &m_lightCubeVAO);
+    glBindVertexArray(m_lightCubeVAO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
     // note that we update the lamp's position attribute's stride to reflect the updated buffer data
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 }
 
 void Scene00::render() {
+    glm::mat4 model = glm::mat4(1.0f);
+    glm::mat4 view = RTRApp::instance().getCamera()->getViewMatrix();
+    glm::mat4 projection = RTRApp::instance().getCamera()->getProjectionMatrix();
+
     m_cubeShader.bind();
-    m_cubeShader.setMat4("model", glm::mat4(1.0f));
-    m_cubeShader.setMat4("VP", RTRApp::instance().getCamera()->getViewProjectionMatrix());
+    m_cubeShader.setMat4("model", model);
+    m_cubeShader.setMat4("view", view);
+    m_cubeShader.setMat4("projection", projection);
     m_cubeShader.setVec3f("viewPos", RTRApp::instance().getCamera()->getPosition());
 
     m_cubeShader.setVec3f("material.ambient", glm::vec3(1.0f, 0.5f, 0.31f));
@@ -108,26 +110,22 @@ void Scene00::render() {
     m_cubeShader.setVec3f("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
     m_cubeShader.setFloat("material.shininess", 32.0f);
 
-    glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+    glm::vec3 lightPos(0.5f, 1.0f, 1.5f);
     m_cubeShader.setVec3f("light.position", lightPos);
     m_cubeShader.setVec3f("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
     m_cubeShader.setVec3f("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
     m_cubeShader.setVec3f("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
-    glBindVertexArray(cubeVAO);
+    glBindVertexArray(m_cubeVAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
     m_lightShader.bind();
-    m_lightShader.setMat4("VP", RTRApp::instance().getCamera()->getViewProjectionMatrix());
-    glm::mat4 model(1.0f);
     model = glm::translate(model, lightPos);
     model = glm::scale(model, glm::vec3(0.2f));
     m_lightShader.setMat4("model", model);
+    m_lightShader.setMat4("view", view);
+    m_lightShader.setMat4("projection", projection);
 
-    glBindVertexArray(lightCubeVAO);
+    glBindVertexArray(m_lightCubeVAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
-}
-
-void Scene00::quit() {
-
 }

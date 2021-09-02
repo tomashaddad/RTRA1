@@ -10,11 +10,10 @@ public:
 	~Scene00();
 	virtual void render() override;
 	virtual void init() override;
-	virtual void quit() override;
 private:
-	unsigned int VBO;
-	unsigned int cubeVAO;
-	unsigned int lightCubeVAO;
+	unsigned int m_VBO;
+	unsigned int m_cubeVAO;
+	unsigned int m_lightCubeVAO;
 	Shader m_cubeShader;
 	Shader m_lightShader;
 };

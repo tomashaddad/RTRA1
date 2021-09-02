@@ -7,6 +7,12 @@
 #include <cmath>
 #include "Camera.h"
 
+Scene01::~Scene01() {
+	glDisable(GL_LIGHT0);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_NORMALIZE);
+}
+
 void Scene01::init() {
 	const int& width = RTRApp::instance().getSDLManager()->getWindowWidth();
 	const int& height = RTRApp::instance().getSDLManager()->getWindowHeight();
@@ -22,20 +28,23 @@ void Scene01::init() {
 
 	glEnable(GL_LIGHTING);
 
-	float worldAmbient[] = { 1.0, 1.0, 1.0, 1.0 };
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, worldAmbient);
+	//float worldAmbient[] = { 1.0, 1.0, 1.0, 1.0 };
+	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, worldAmbient);
 
 	// directional light source
-	float ambient0[] = { 0.0, 0.0, 0.0, 1.0 };
+	float ambient0[] = { 0.2, 0.2, 0.2, 1.0 };
 	float diffuse0[] = { 1.0, 1.0, 1.0, 1.0 };
 	float specular0[] = { 1.0, 1.0, 1.0, 1.0 };
-	float position0[] = { 10.0, 10.0, 10.0, 0.0 };
+	float position0[] = { 20.0, 20.0, 20.0, 1.0 };
+	// 0 directional, 1 point
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0);
 	glLightfv(GL_LIGHT0, GL_POSITION, position0);
 	glEnable(GL_LIGHT0);
+
+	glEnable(GL_NORMALIZE);
 }
 
 // take index, mod by 36, divide the result by 3
@@ -46,9 +55,8 @@ void Scene01::render() {
 
 	glMultMatrixf((const float*)glm::value_ptr(RTRApp::instance().getCamera()->getViewMatrix()));
 
-	float position0[] = { 10.0, 10.0, 10.0, 0.0 };
+	float position0[] = { 20.0, 20.0, 20.0, 1.0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, position0);
-
 	glPushMatrix();
 	glScalef(10.0f, 10.0f, 10.0f);
 		glBegin(GL_TRIANGLES);
@@ -75,11 +83,6 @@ void Scene01::render() {
 		}
 		glEnd();
 	glPopMatrix();
-}
-
-void Scene01::quit() {
-	glDisable(GL_LIGHTING);
-	glDisable(GL_LIGHT0);
 }
 
 // From https://stackoverflow.com/questions/12943164/replacement-for-gluperspective-with-glfrustrum

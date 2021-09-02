@@ -14,9 +14,9 @@ struct Menger {
 class SceneBase {
 public:
 	SceneBase();
+	virtual ~SceneBase();
 	virtual void init() = 0;
 	virtual void render() = 0;
-	virtual void quit() = 0;
 
 	virtual void incrementSubdivisions();
 	virtual void decrementSubdivisions();
