@@ -21,10 +21,11 @@ public:
 	virtual void incrementSubdivisions();
 	virtual void decrementSubdivisions();
 
-	const unsigned int getMaxSubdivisions() const;
-	const unsigned int getVerticesSize() const;
+	virtual const unsigned int getMaxSubdivisions() const;
+	virtual const unsigned int getVerticesSize() const;
 
 protected:
+	virtual void clear();
 	virtual void recursiveMenger(float x, float y, float z, float edgeLength, int currentDivisions, int maxSubdivisions);
 	virtual void generateCubeVerticesAt(float x, float y, float z, float edgeLength);
 
@@ -37,7 +38,4 @@ protected:
 	//std::vector<glm::vec3> m_vertices;
 	//std::vector<unsigned int> m_indices;
 	const std::array<unsigned int, 36> m_baseIndices;
-
-private:
-	void clear();
 };

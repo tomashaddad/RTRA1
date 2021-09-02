@@ -6,7 +6,7 @@
 #include <glm/gtx/normal.hpp>
 
 SceneBase::SceneBase()
-	: m_maxSubvisions(1)
+	: m_maxSubvisions(2)
 	, m_edgeLength(1)
 	, m_baseIndices({
 		0, 2, 1, 1, 2, 3,	// +z

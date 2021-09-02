@@ -1,11 +1,16 @@
-#version 330 core
+#version 460 core
 
-layout (location = 0) in vec3 aPos;
+layout (location = 0) in vec3 position;
 
-uniform mat4 VP;
 uniform mat4 model;
 
-void main()
-{
-	gl_Position = VP * model * vec4(aPos, 1.0);
+out vData {
+	vec3 fragmentPosition;
+} vertexOut;
+
+void main() {
+	vertexOut.fragmentPosition = vec3(model * vec4(position, 1.0));
+	
+	// gl_Position = projection * view * model * vec4(position, 1.0);
+	gl_Position = vec4(position, 1.0);
 }

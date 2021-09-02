@@ -2,6 +2,8 @@
 
 #include "RTRApp.h"
 
+#include <iostream>
+
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/normal.hpp>
 #include <cmath>

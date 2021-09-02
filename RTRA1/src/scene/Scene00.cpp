@@ -70,15 +70,30 @@ void Scene00::init() {
     };
 
     glGenVertexArrays(1, &m_cubeVAO);
-    glGenBuffers(1, &m_VBO);
+    glGenBuffers(1, &m_VBO); // give us a buffer
 
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO); // this is the buffer we will be using
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // please load the vertex data into buffer's memory
+    // GL_STREAM_DRAW: Set once, used a few times
+    // GL_STATIC_DRAW: Set once, used many times
+    // GL_DYNAMIC_DRAW: Set a lot, used a lot
 
+    // Any subsequent vertex attribute calls from this point on will be stored in this bound VAO
+    // It stores:
+    //      Calls to glEnableVertexAttribArray or glDisableVertexAttribArray
+    //      Vertex attribute configurations via glVertexAttribPointer
+    //      VBO's associated with vertex attributes by calls to glVertexAttribPointer
     glBindVertexArray(m_cubeVAO);
+
+    // now we need to specify what part of our input data goes to which vertex attribute in the vertex shader
+    // i.e. we need to tell OpenGL how it should interpret the vertex data before rendering
+    // each verte attribute takes its data from memory managed by a VBO,a nd which VBO it takes its data from is
+    // determined by the VBO currently bound to GL_ARRAY_BUFFER when calling glVertexAttribPointer.
+    // So the vertex attribute pointer calls below will associate vertex attributes 0 and 1 with the given layout.
 
     // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    // vertex attributes are disabled by default and need to be manually enabled
     glEnableVertexAttribArray(0);
     // normal attribute
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
