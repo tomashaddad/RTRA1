@@ -44,3 +44,17 @@ void MaterialFactory::setMaterial(MaterialName name) {
 	glMaterialfv(GL_FRONT, GL_SPECULAR, (const float*)glm::value_ptr(m_activeMaterial->m_specular));
 	glMaterialf(GL_FRONT, GL_SHININESS, m_activeMaterial->shininess);
 }
+
+const Material MaterialFactory::getMaterialByName(MaterialName name) const {
+	switch (name) {
+	case MaterialName::RUBY:
+		return m_ruby;
+		break;
+	case MaterialName::EMERALD:
+		return m_emerald;
+		break;
+	case MaterialName::TURQUOISE:
+		return m_turquoise;
+		break;
+	}
+}

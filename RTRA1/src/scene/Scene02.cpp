@@ -72,12 +72,11 @@ void Scene02::render() {
 	m_shader.setMat4("projection", projection);
 	m_shader.setVec3f("viewPos", RTRApp::instance().getCamera()->getPosition());
 
-	m_shader.setVec3f("material.ambient", glm::vec3(1.0f, 0.5f, 0.31f));
-	m_shader.setVec3f("material.diffuse", glm::vec3(1.0f, 0.5f, 0.31f));
-	m_shader.setVec3f("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
-	m_shader.setFloat("material.shininess", 32.0f);
+	m_shader.setMaterial("ruby", m_materialFactory.getMaterialByName(MaterialName::RUBY));
+	m_shader.setMaterial("emerald", m_materialFactory.getMaterialByName(MaterialName::EMERALD));
+	m_shader.setMaterial("turquoise", m_materialFactory.getMaterialByName(MaterialName::TURQUOISE));
 
-	glm::vec3 lightPos(10.0f, 10.0f, 10.0f);
+	glm::vec3 lightPos(5.0f, 0.0f, 5.0f);
 	m_shader.setVec3f("light.position", lightPos);
 	m_shader.setVec3f("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
 	m_shader.setVec3f("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
@@ -86,6 +85,4 @@ void Scene02::render() {
 	glBindVertexArray(m_VAO);
 
 	glDrawElements(GL_TRIANGLES, m_menger.indices.size(), GL_UNSIGNED_INT, 0);
-
-	//glBindVertexArray(0);
 }

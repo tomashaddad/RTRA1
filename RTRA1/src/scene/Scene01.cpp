@@ -37,7 +37,7 @@ void Scene01::init() {
 	float ambient0[] = { 0.2, 0.2, 0.2, 1.0 };
 	float diffuse0[] = { 1.0, 1.0, 1.0, 1.0 };
 	float specular0[] = { 1.0, 1.0, 1.0, 1.0 };
-	float position0[] = { 20.0, 20.0, 20.0, 1.0 };
+	float position0[] = { 5.0, 0.0, 5.0, 1.0 };
 	// 0 directional, 1 point
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
@@ -56,11 +56,11 @@ void Scene01::render() {
 	glLoadIdentity();
 
 	glMultMatrixf((const float*)glm::value_ptr(RTRApp::instance().getCamera()->getViewMatrix()));
-
-	float position0[] = { 20.0, 20.0, 20.0, 1.0 };
+	float position0[] = { 5.0, 0.0, 5.0, 1.0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, position0);
+
 	glPushMatrix();
-	glScalef(10.0f, 10.0f, 10.0f);
+	//glScalef(10.0f, 10.0f, 10.0f);
 		glBegin(GL_TRIANGLES);
 		for (int index = 0; index <= m_menger.indices.size() - 3; index += 3) {
 			glm::vec3& p1 = m_menger.vertices[m_menger.indices[index + 0]];

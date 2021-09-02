@@ -16,7 +16,8 @@ struct Light {
     vec3 specular;
 };
 
-uniform Material material;
+in Material material;
+
 uniform Light light;
 uniform vec3 viewPos;
 
@@ -39,7 +40,7 @@ void main() {
     // Specular
     vec3 viewDir = normalize(viewPos - geometryOut.fragmentPosition); 
     vec3 halfwayDir = normalize(lightDir + viewDir);
-    float spec = pow(max(dot(norm, halfwayDir), 0.0), material.shininess);
+    float spec = pow(max(dot(norm, halfwayDir), 0.0), material.shininess * 2);
     vec3 specular = material.specular * light.specular * spec;
 
     vec3 result = ambient + diffuse + specular;

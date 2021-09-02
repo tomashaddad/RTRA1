@@ -22,6 +22,7 @@ public:
 	MaterialFactory();
 
 	void setMaterial(MaterialName name);
+	const Material getMaterialByName(MaterialName name) const;
 
 private:
 	Material* m_activeMaterial;

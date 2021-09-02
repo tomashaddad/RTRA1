@@ -1,5 +1,6 @@
 #include "Shader.h"
 
+#include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -174,4 +175,16 @@ void Shader::setMat3(const std::string& uniformName, const glm::mat3& matrix) {
 
 void Shader::setMat4(const std::string& uniformName, const glm::mat4& matrix) {
 	glUniformMatrix4fv(getUniformLocation(uniformName), 1, GL_FALSE, &matrix[0][0]);
+}
+
+void Shader::setMaterial(const std::string& materialName, const Material& material) {
+	const std::string ambient = materialName + ".ambient";
+	const std::string diffuse = materialName + ".diffuse";
+	const std::string specular = materialName + ".specular";
+	const std::string shininess = materialName + ".shininess";
+
+	glUniform3fv(getUniformLocation(ambient), 1, glm::value_ptr(material.m_ambient));
+	glUniform3fv(getUniformLocation(diffuse), 1, glm::value_ptr(material.m_diffuse));
+	glUniform3fv(getUniformLocation(specular), 1, glm::value_ptr(material.m_specular));
+	glUniform1f(getUniformLocation(shininess), material.shininess);
 }

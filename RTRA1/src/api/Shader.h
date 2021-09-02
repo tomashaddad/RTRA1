@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <string>
 
+#include "MaterialFactory.h"
+
 class Shader {
 public:
 	Shader(const std::string& vertexShader, const std::string& fragmentShader, const std::string& geometryShader = "", const bool& fromFile = true);
@@ -22,6 +24,7 @@ public:
 	void setVec4f(const std::string& uniformName, const glm::vec4& value);
 	void setMat3(const std::string& uniformName, const glm::mat3& matrix);
 	void setMat4(const std::string& uniformName, const glm::mat4& matrix);
+	void setMaterial(const std::string& materialName, const Material& material);
 
 private:
 	std::string parseFile(const std::string& file);
