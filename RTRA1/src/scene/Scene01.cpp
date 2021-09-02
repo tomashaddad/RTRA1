@@ -4,6 +4,7 @@
 
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/normal.hpp>
+#include <cmath>
 #include "Camera.h"
 
 void Scene01::init() {
@@ -21,11 +22,14 @@ void Scene01::init() {
 
 	glEnable(GL_LIGHTING);
 
+	float worldAmbient[] = { 1.0, 1.0, 1.0, 1.0 };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, worldAmbient);
+
 	// directional light source
 	float ambient0[] = { 0.0, 0.0, 0.0, 1.0 };
 	float diffuse0[] = { 1.0, 1.0, 1.0, 1.0 };
 	float specular0[] = { 1.0, 1.0, 1.0, 1.0 };
-	float position0[] = { 1.0, 0.0, 0.0, 0.0 };
+	float position0[] = { 10.0, 10.0, 10.0, 0.0 };
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
@@ -42,17 +46,28 @@ void Scene01::render() {
 
 	glMultMatrixf((const float*)glm::value_ptr(RTRApp::instance().getCamera()->getViewMatrix()));
 
-	float position0[] = { 1.0, 0.0, 0.0, 0.0 };
+	float position0[] = { 10.0, 10.0, 10.0, 0.0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, position0);
 
 	glPushMatrix();
 	glScalef(10.0f, 10.0f, 10.0f);
 		glBegin(GL_TRIANGLES);
-		for (int index = 0; index < m_menger.indices.size() - 3; index += 3) {
+		for (int index = 0; index <= m_menger.indices.size() - 3; index += 3) {
 			glm::vec3& p1 = m_menger.vertices[m_menger.indices[index + 0]];
 			glm::vec3& p2 = m_menger.vertices[m_menger.indices[index + 1]];
 			glm::vec3& p3 = m_menger.vertices[m_menger.indices[index + 2]];
 			glm::vec3 normal = glm::normalize(glm::triangleNormal(p1, p2, p3));
+
+			if (abs(normal.x) == 1) {
+				m_materialFactory.setMaterial(MaterialName::RUBY);
+			}
+			else if (abs(normal.y) == 1) {
+				m_materialFactory.setMaterial(MaterialName::EMERALD);
+			}
+			else if (abs(normal.z) == 1) {
+				m_materialFactory.setMaterial(MaterialName::TURQUOISE);
+			}
+
 			glNormal3f(normal.x, normal.y, normal.z);
 			glVertex3f(p1.x, p1.y, p1.z);
 			glVertex3f(p2.x, p2.y, p2.z);

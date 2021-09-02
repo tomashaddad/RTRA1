@@ -10,30 +10,41 @@ Camera::Camera(float fov, float near, float far)
 	, m_near(near)
 	, m_far(far)
 	, m_position(glm::vec3(0.0f))
-	, m_rotation(glm::quat(1.0f, 0.0f, 0.0f, 0.0f)) {}
+	, m_rotation(glm::quat(1.0f, 0.0f, 0.0f, 0.0f))
+	, m_movementSpeed(15)
+	, m_rotationSpeed(50)
+	, m_mouseSpeed(0.001) {}
 
-void Camera::moveForward() {
-	m_position += m_rotation * glm::vec3(0.0f, 0.0f, 1.0f);
+void Camera::moveForward(const float dt) {
+	m_position += m_rotation * glm::vec3(0.0f, 0.0f, m_movementSpeed * dt);
 }
 
-void Camera::moveBackward() {
-	m_position += m_rotation * glm::vec3(0.0f, 0.0f, -1.0f);
+void Camera::moveBackward(const float dt) {
+	m_position += m_rotation * glm::vec3(0.0f, 0.0f, -m_movementSpeed * dt);
+}
+
+void Camera::strafeLeft(const float dt) {
+	m_position += m_rotation * glm::vec3(m_movementSpeed * dt, 0.0f, 0.0f);
+}
+
+void Camera::strafeRight(const float dt) {
+	m_position += m_rotation * glm::vec3(-m_movementSpeed * dt, 0.0f, 0.0f);
 }
 
 void Camera::yaw(signed int degree) {
-	m_rotation *= glm::angleAxis(-(float)degree * 0.001f, glm::vec3(0.0f, 1.0f, 0.0f));
+	m_rotation *= glm::angleAxis(-(float)degree * m_mouseSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void Camera::pitch(signed int degree) {
-	m_rotation *= glm::angleAxis(-(float)degree * 0.001f, glm::vec3(1.0f, 0.0f, 0.0f));
+	m_rotation *= glm::angleAxis(-(float)degree * m_mouseSpeed, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
-void Camera::rollLeft() {
-	m_rotation *= glm::angleAxis(glm::radians(2.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+void Camera::rollLeft(const float dt) {
+	m_rotation *= glm::angleAxis(glm::radians(m_rotationSpeed * dt), glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
-void Camera::rollRight() {
-	m_rotation *= glm::angleAxis(glm::radians(-2.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+void Camera::rollRight(const float dt) {
+	m_rotation *= glm::angleAxis(glm::radians(-m_rotationSpeed * dt), glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 void Camera::reset() {

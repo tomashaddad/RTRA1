@@ -19,12 +19,14 @@ class Camera {
 public:
 	Camera(float fov, float near, float far);
 
-	void moveForward();
-	void moveBackward();
+	void moveForward(const float dt);
+	void moveBackward(const float dt);
+	void strafeLeft(const float dt);
+	void strafeRight(const float dt);
 	void yaw(signed int degree);
 	void pitch(signed int degree);
-	void rollLeft();
-	void rollRight();
+	void rollLeft(const float dt);
+	void rollRight(const float dt);
 
 	void reset();
 
@@ -45,4 +47,8 @@ private:
 
 	glm::quat m_rotation;
 	glm::vec3 m_position;
+	
+	const float m_movementSpeed;
+	const float m_rotationSpeed;
+	const float m_mouseSpeed;
 };

@@ -66,6 +66,9 @@
     <ClCompile Include="src\FPSTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\MaterialFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\dependencies\glm\detail\_features.hpp">
@@ -960,6 +963,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\FPSTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MaterialFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -40,9 +40,9 @@ void RTRApp::run() {
 	while (m_state != State::QUIT) {
 		getFPSTimer()->start();
 
-		checkInput();
 
 		float dt = getSDLManager()->getFrameDeltaTime();
+		checkInput(dt);
 		renderFrame(dt);
 
 		getSDLManager()->swapBuffers();
@@ -52,7 +52,7 @@ void RTRApp::run() {
 	}
 }
 
-void RTRApp::checkInput() {
+void RTRApp::checkInput(float dt) {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
@@ -82,26 +82,14 @@ void RTRApp::checkInput() {
 				case SDLK_6:
 					switchToScene(6);
 					break;
-				case SDLK_w:
-					getCamera()->moveForward();
-					break;
-				case SDLK_s:
-					getCamera()->moveBackward();
-					break;
-				case SDLK_a:
-					getCamera()->rollLeft();
+				case SDLK_r:
+					getCamera()->reset();
 					break;
 				case SDLK_c:
 					getGLManager()->toggleBackFaceCulling();
 					break;
-				case SDLK_d:
-					getCamera()->rollRight();
-					break;
 				case SDLK_h:
 					getText()->toggleFPSMode();
-					break;
-				case SDLK_r:
-					getCamera()->reset();
 					break;
 				case SDLK_z:
 					getGLManager()->toggleDepthTesting();
@@ -133,6 +121,32 @@ void RTRApp::checkInput() {
 				getCamera()->pitch(event.motion.yrel);
 				break;
 		}
+	}
+
+	const Uint8* keystates = SDL_GetKeyboardState(NULL);
+
+	if (keystates[SDL_SCANCODE_W]) {
+		getCamera()->moveForward(dt);
+	}
+
+	if (keystates[SDL_SCANCODE_A]) {
+		getCamera()->strafeLeft(dt);
+	}
+
+	if (keystates[SDL_SCANCODE_S]) {
+		getCamera()->moveBackward(dt);
+	}
+
+	if (keystates[SDL_SCANCODE_D]) {
+		getCamera()->strafeRight(dt);
+	}
+
+	if (keystates[SDL_SCANCODE_Q]) {
+		getCamera()->rollLeft(dt);
+	}
+
+	if (keystates[SDL_SCANCODE_E]) {
+		getCamera()->rollRight(dt);
 	}
 }
 

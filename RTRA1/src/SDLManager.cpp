@@ -132,12 +132,13 @@ void SDLManager::updateWindow() {
 }
 
 float const SDLManager::getTimeElapsed() {
-	m_deltaTimer.time = SDL_GetTicks() / 1000.0f;
-	return m_deltaTimer.time;
+	m_deltaTimer.currentTime = SDL_GetTicks() / 1000.0f;
+	return m_deltaTimer.currentTime;
 }
 
 float const SDLManager::getFrameDeltaTime() {
-	m_deltaTimer.deltaTime = getTimeElapsed() - m_deltaTimer.time;
+	m_deltaTimer.deltaTime = getTimeElapsed() - m_deltaTimer.lastTime;
+	m_deltaTimer.lastTime = m_deltaTimer.currentTime;
 	return m_deltaTimer.deltaTime;
 }
 

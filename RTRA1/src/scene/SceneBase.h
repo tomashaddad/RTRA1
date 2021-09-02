@@ -4,6 +4,8 @@
 #include <vector>
 #include <array>
 
+#include "MaterialFactory.h"
+
 struct Menger {
 	std::vector<glm::vec3> vertices;
 	std::vector<unsigned int> indices;
@@ -30,6 +32,7 @@ protected:
 	float m_edgeLength;
 
 	Menger m_menger;
+	MaterialFactory m_materialFactory;
 
 	//std::vector<glm::vec3> m_vertices;
 	//std::vector<unsigned int> m_indices;

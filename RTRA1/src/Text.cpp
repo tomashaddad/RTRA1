@@ -44,8 +44,8 @@ void Text::update() const {
 			<< "Faces: " << ((verticesSize / 8) * 2 * 6) << std::endl // 8 verts per cube, 2 faces per 6 sides
 			<< "Data: " << "Placeholder" << std::endl
 			<< "Lighting: " << "Placeholder" << std::endl
-			<< "Depth testing: " << fps << std::endl
-			<< "Backface culling: " << fps << std::endl;
+			<< "Depth testing: " << (depthTesting ? "On" : "Off") << std::endl
+			<< "Backface culling: " << (cullingBackFaces ? "On" : "Off") << std::endl;
 	}
 
 	gltSetText(m_text, text.str().c_str());

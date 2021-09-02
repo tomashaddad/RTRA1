@@ -33,7 +33,7 @@ public:
 
 	void run();
 
-	void checkInput();
+	void checkInput(float dt);
 	void switchToScene(unsigned int sceneNumber);
 	void renderFrame(float dt);
 	void quit();

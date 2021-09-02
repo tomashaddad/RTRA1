@@ -5,7 +5,8 @@
 #include <string>
 
 struct DeltaTimer {
-	float time = 0;
+	float currentTime = 0;
+	float lastTime = 0;
 	float deltaTime = 0;
 };
 
