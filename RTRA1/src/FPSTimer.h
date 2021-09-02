@@ -6,7 +6,7 @@ public:
 
 	void start();
 	void end();
-	const float& getAverageFPS();
+	const float getAverageFPS();
 
 private:
 	const float getFPS();

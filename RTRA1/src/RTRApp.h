@@ -42,10 +42,11 @@ public:
 	SDLManager* getSDLManager() const;
 	GLManager* getGLManager() const;
 	Camera* getCamera() const;
+	SceneBase* getScene() const;
 	Text* getText() const;
 	FPSTimer* getFPSTimer() const;
 
-	const unsigned int& getCurrentSceneNumber() const;
+	const unsigned int getCurrentSceneNumber() const;
 
 private:
 	static RTRApp* m_instance;

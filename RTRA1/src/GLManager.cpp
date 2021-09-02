@@ -36,3 +36,11 @@ void GLManager::toggleBackFaceCulling() {
         m_cullBackFace = true;
     }
 }
+
+const bool GLManager::isDepthTesting() const {
+    return m_depthTesting;
+}
+
+const bool GLManager::isCullingBackFaces() const {
+    return m_cullBackFace;
+}

@@ -191,6 +191,10 @@ Camera* RTRApp::getCamera() const {
 	return m_camera.get();
 }
 
+SceneBase* RTRApp::getScene() const {
+	return m_currentScene.get();
+}
+
 Text* RTRApp::getText() const {
 	return m_text.get();
 }
@@ -199,6 +203,6 @@ FPSTimer* RTRApp::getFPSTimer() const {
 	return m_fpsTimer.get();
 }
 
-const unsigned int& RTRApp::getCurrentSceneNumber() const {
+const unsigned int RTRApp::getCurrentSceneNumber() const {
 	return m_currentSceneNumber;
 }

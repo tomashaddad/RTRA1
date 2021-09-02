@@ -40,13 +40,13 @@ public:
 	const float getTimeElapsed();
 	const float getFrameDeltaTime();
 
-	const unsigned int& getWindowWidth() const;
-	const unsigned int& getWindowHeight() const;
+	const unsigned int getWindowWidth() const;
+	const unsigned int getWindowHeight() const;
 
-	const unsigned int& getRefreshRate() const;
+	const unsigned int getRefreshRate() const;
 
-	const unsigned int& getPerformanceCounter() const;
-	const unsigned int& getPerformanceFrequency() const;
+	const unsigned int getPerformanceCounter() const;
+	const unsigned int getPerformanceFrequency() const;
 
 private:
 	bool initSDL();

@@ -100,3 +100,11 @@ void SceneBase::clear() {
 	m_menger.vertices.clear();
 	m_menger.indices.clear();
 }
+
+const unsigned int SceneBase::getMaxSubdivisions() const {
+	return m_maxSubvisions;
+}
+
+const unsigned int SceneBase::getVerticesSize() const {
+	return m_menger.vertices.size();
+}

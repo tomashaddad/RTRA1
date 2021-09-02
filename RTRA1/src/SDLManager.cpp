@@ -141,15 +141,15 @@ float const SDLManager::getFrameDeltaTime() {
 	return m_deltaTimer.deltaTime;
 }
 
-const unsigned int& SDLManager::getWindowWidth() const {
+const unsigned int SDLManager::getWindowWidth() const {
 	return m_window.width;
 }
 
-const unsigned int& SDLManager::getWindowHeight() const {
+const unsigned int SDLManager::getWindowHeight() const {
 	return m_window.height;
 }
 
-const unsigned int& SDLManager::getRefreshRate() const {
+const unsigned int SDLManager::getRefreshRate() const {
 	SDL_DisplayMode current;
 	int should_be_zero = SDL_GetCurrentDisplayMode(SDL_GetWindowID(m_sdl.window), &current);
 
@@ -161,10 +161,10 @@ const unsigned int& SDLManager::getRefreshRate() const {
 	return current.refresh_rate;
 }
 
-const unsigned int& SDLManager::getPerformanceCounter() const {
+const unsigned int SDLManager::getPerformanceCounter() const {
 	return SDL_GetPerformanceCounter();
 }
 
-const unsigned int& SDLManager::getPerformanceFrequency() const {
+const unsigned int SDLManager::getPerformanceFrequency() const {
 	return SDL_GetPerformanceFrequency();
 }
