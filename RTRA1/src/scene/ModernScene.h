@@ -3,22 +3,21 @@
 #include "SceneBase.h"
 #include "api/Shader.h"
 
-class Scene03 : public SceneBase {
+//#include <memory>
+
+class ModernScene : public SceneBase {
 public:
-	Scene03();
-	~Scene03();
-	virtual void init() override;
-	virtual void render() override;
+	ModernScene(Shader shader);
+	virtual ~ModernScene();
+	virtual void init() = 0;
+	virtual void render() = 0;
 	virtual void incrementSubdivisions() override;
 	virtual void decrementSubdivisions() override;
 
-private:
+protected:
 	void updateLayout();
-
-private:
 	unsigned int m_VBO;
 	unsigned int m_VAO;
 	unsigned int m_EBO;
 	Shader m_shader;
 };
-

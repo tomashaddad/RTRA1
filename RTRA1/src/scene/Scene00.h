@@ -10,6 +10,9 @@ public:
 	~Scene00();
 	virtual void render() override;
 	virtual void init() override;
+	virtual void incrementSubdivisions() {} // not needed in sandbox
+	virtual void decrementSubdivisions() {} // not needed in sandbox
+
 private:
 	unsigned int m_VBO;
 	unsigned int m_cubeVAO;

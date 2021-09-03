@@ -17,7 +17,6 @@ public:
 	virtual ~SceneBase();
 	virtual void init() = 0;
 	virtual void render() = 0;
-
 	virtual void incrementSubdivisions();
 	virtual void decrementSubdivisions();
 
@@ -35,7 +34,5 @@ protected:
 	Menger m_menger;
 	MaterialFactory m_materialFactory;
 
-	//std::vector<glm::vec3> m_vertices;
-	//std::vector<unsigned int> m_indices;
 	const std::array<unsigned int, 36> m_baseIndices;
 };

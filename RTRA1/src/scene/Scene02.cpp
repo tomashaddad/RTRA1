@@ -8,20 +8,14 @@
 #include <glm/gtc/type_ptr.hpp>
 
 Scene02::Scene02()
-	: m_shader("./src/shaders/scene02/menger.vert", "./src/shaders/scene02/menger.frag", "./src/shaders/scene02/menger.geom")
-	, m_VAO(0)
-	, m_VBO(0)
-	, m_EBO(0) {}
+	: ModernScene(Shader(
+		"./src/shaders/scene02/menger.vert",
+		"./src/shaders/scene02/menger.frag",
+		"./src/shaders/scene02/menger.geom")) {}
 
-Scene02::~Scene02() {
-
-}
+Scene02::~Scene02() {}
 
 void Scene02::init() {
-	glGenVertexArrays(1, &m_VAO);
-	glGenBuffers(1, &m_VBO);
-	glGenBuffers(1, &m_EBO);
-
 	glBindVertexArray(m_VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
@@ -35,30 +29,6 @@ void Scene02::init() {
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-}
-
-void Scene02::updateLayout() {
-	glBindVertexArray(m_VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_menger.vertices.size(), m_menger.vertices.data(), GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * m_menger.indices.size(), m_menger.indices.data(), GL_STATIC_DRAW);
-}
-
-void Scene02::incrementSubdivisions() {
-	clear();
-	recursiveMenger(0, 0, 0, m_edgeLength, 0, ++m_maxSubvisions);
-	updateLayout();
-}
-
-void Scene02::decrementSubdivisions() {
-	if (m_maxSubvisions <= 0) {
-		return;
-	}
-	clear();
-	recursiveMenger(0, 0, 0, m_edgeLength, 0, --m_maxSubvisions);
-	updateLayout();
 }
 
 void Scene02::render() {

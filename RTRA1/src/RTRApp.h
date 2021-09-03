@@ -29,7 +29,7 @@ public:
 		return *m_instance;
 	}
 
-	RTRApp(const std::string& title, unsigned int width = 1280, unsigned int height = 720, bool fullscreen = false);
+	RTRApp(const std::string& title, unsigned int width = 1920, unsigned int height = 1080, bool fullscreen = false);
 
 	void run();
 
