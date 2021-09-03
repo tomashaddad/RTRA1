@@ -79,3 +79,7 @@ const float& Camera::getNearPlane() const {
 const float& Camera::getFarPlane() const {
 	return m_far;
 }
+
+const glm::vec3 Camera::getForwardVector() const {
+	return m_rotation * glm::vec3(0.0, 0.0, -1.0);
+}

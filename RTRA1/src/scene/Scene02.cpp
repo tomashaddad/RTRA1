@@ -3,6 +3,7 @@
 #include "RTRApp.h"
 
 #include <iostream>
+#include <sstream>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -12,8 +13,6 @@ Scene02::Scene02()
 		"./src/shaders/scene02/menger.vert",
 		"./src/shaders/scene02/menger.frag",
 		"./src/shaders/scene02/menger.geom")) {}
-
-Scene02::~Scene02() {}
 
 void Scene02::init() {
 	glBindVertexArray(m_VAO);
@@ -32,7 +31,7 @@ void Scene02::init() {
 }
 
 void Scene02::render() {
-	glm::mat4 model = glm::mat4(1.0f);
+	glm::mat4 model = m_transformation.getModelMatrix(); // default
 	glm::mat4 view = RTRApp::instance().getCamera()->getViewMatrix();
 	glm::mat4 projection = RTRApp::instance().getCamera()->getProjectionMatrix();
 
@@ -42,15 +41,17 @@ void Scene02::render() {
 	m_shader->setMat4("projection", projection);
 	m_shader->setVec3f("viewPos", RTRApp::instance().getCamera()->getPosition());
 
-	m_shader->setMaterial("ruby", m_materialFactory.getMaterialByName(MaterialName::RUBY));
-	m_shader->setMaterial("emerald", m_materialFactory.getMaterialByName(MaterialName::EMERALD));
-	m_shader->setMaterial("turquoise", m_materialFactory.getMaterialByName(MaterialName::TURQUOISE));
+	m_shader->setMaterial("ruby", m_materialManager.getMaterialByName(MaterialName::RUBY));
+	m_shader->setMaterial("emerald", m_materialManager.getMaterialByName(MaterialName::EMERALD));
+	m_shader->setMaterial("turquoise", m_materialManager.getMaterialByName(MaterialName::TURQUOISE));
 
-	glm::vec3 lightPos(5.0f, 0.0f, 5.0f);
-	m_shader->setVec3f("light.position", lightPos);
-	m_shader->setVec3f("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
-	m_shader->setVec3f("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
-	m_shader->setVec3f("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+	m_shader->setInt("lightNumber", m_lightNumber);
+
+	setDirectionalLight("directionalLight", m_lightManager.getDirectionalLight());
+
+	for (int i = 0; i < m_lightNumber; ++i) {
+		setPointLight("pointLights", m_lightManager.getPointLights()[i], i);
+	}
 
 	glBindVertexArray(m_VAO);
 

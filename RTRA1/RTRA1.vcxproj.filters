@@ -66,13 +66,22 @@
     <ClCompile Include="src\FPSTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MaterialFactory.cpp">
+    <ClCompile Include="src\MaterialManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\scene\Scene02.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\scene\ModernScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Transformation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Scene03.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -971,13 +980,22 @@
     <ClInclude Include="src\FPSTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MaterialFactory.h">
+    <ClInclude Include="src\MaterialManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\scene\Scene02.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\scene\ModernScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Transformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\Scene03.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1398,5 +1416,8 @@
     <None Include="src\shaders\scene02\menger.vert" />
     <None Include="src\shaders\scene02\menger.geom" />
     <None Include="src\shaders\scene00\cube_blinnphong.frag" />
+    <None Include="src\shaders\scene03\menger.frag" />
+    <None Include="src\shaders\scene03\menger.geom" />
+    <None Include="src\shaders\scene03\menger.vert" />
   </ItemGroup>
 </Project>

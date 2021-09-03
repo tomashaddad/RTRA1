@@ -4,7 +4,8 @@
 #include <vector>
 #include <array>
 
-#include "MaterialFactory.h"
+#include "MaterialManager.h"
+#include "LightManager.h"
 
 struct Menger {
 	std::vector<glm::vec3> vertices;
@@ -19,9 +20,12 @@ public:
 	virtual void render() = 0;
 	virtual void incrementSubdivisions();
 	virtual void decrementSubdivisions();
+	virtual void incrementLights();
+	virtual void decrementLights();
 
 	virtual const unsigned int getMaxSubdivisions() const;
 	virtual const unsigned int getVerticesSize() const;
+
 
 protected:
 	virtual void clear();
@@ -30,9 +34,11 @@ protected:
 
 	unsigned int m_maxSubvisions;
 	float m_edgeLength;
+	unsigned int m_lightNumber;
 
 	Menger m_menger;
-	MaterialFactory m_materialFactory;
+	MaterialManager m_materialManager;
+	LightManager m_lightManager;
 
 	const std::array<unsigned int, 36> m_baseIndices;
 };

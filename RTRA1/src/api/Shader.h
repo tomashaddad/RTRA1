@@ -4,7 +4,8 @@
 #include <glm/glm.hpp>
 #include <string>
 
-#include "MaterialFactory.h"
+#include "MaterialManager.h"
+#include "LightManager.h"
 
 class Shader {
 public:

@@ -39,6 +39,8 @@ public:
 	const float& getNearPlane() const;
 	const float& getFarPlane() const;
 
+	const glm::vec3 getForwardVector() const;
+
 private:
 	float m_fov;
 	float m_near;

@@ -2,8 +2,6 @@
 
 #include <glm/glm.hpp>
 
-// Yes it's not TECHNICALLY the "factory" pattern but it's close enough!
-
 enum class MaterialName {
 	RUBY,
 	EMERALD,
@@ -17,9 +15,9 @@ struct Material {
 	float shininess;
 };
 
-class MaterialFactory {
+class MaterialManager {
 public:
-	MaterialFactory();
+	MaterialManager();
 
 	void setMaterial(MaterialName name);
 	const Material getMaterialByName(MaterialName name) const;

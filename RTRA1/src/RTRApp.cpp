@@ -7,7 +7,7 @@
 #include "scene/Scene00.h"
 #include "scene/Scene01.h"
 #include "scene/Scene02.h"
-//#include "scene/Scene03.h"
+#include "scene/Scene03.h"
 //#include "scene/Scene04.h"
 //#include "scene/Scene05.h"
 //#include "scene/Scene06.h"
@@ -99,11 +99,11 @@ void RTRApp::checkInput(float dt) {
 					break;
 				case SDLK_LESS:
 				case SDLK_COMMA:
-					// DECREMENT LIGHTS
+					m_currentScene->decrementLights();
 					break;
 				case SDLK_GREATER:
 				case SDLK_PERIOD:
-					// INCREMENT LIGHTS
+					m_currentScene->incrementLights();
 					break;
 				case SDLK_EQUALS:
 					m_currentScene->incrementSubdivisions();
@@ -152,7 +152,7 @@ void RTRApp::checkInput(float dt) {
 
 void RTRApp::switchToScene(unsigned int sceneNumber) {
 	if (m_currentSceneNumber == sceneNumber) {
-		return; // do not re-render the same scene
+		return;
 	}
 
 	switch (sceneNumber) {
@@ -165,9 +165,9 @@ void RTRApp::switchToScene(unsigned int sceneNumber) {
 	case 2:
 		m_currentScene = std::make_unique<Scene02>();
 		break;
-	//case 3:
-	//	m_currentScene = std::make_unique<Scene03>();
-	//	break;
+	case 3:
+		m_currentScene = std::make_unique<Scene03>();
+		break;
 	//case 4:
 	//	m_currentScene = std::make_unique<Scene04>();
 	//	break;

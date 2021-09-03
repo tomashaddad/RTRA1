@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Transformation.h"
 #include "SceneBase.h"
 #include "api/Shader.h"
 
@@ -16,10 +17,16 @@ public:
 	virtual void incrementSubdivisions() override;
 	virtual void decrementSubdivisions() override;
 
+	virtual void incrementLights() override;
+	virtual void decrementLights() override;
+
 protected:
 	void updateLayout();
+	void setDirectionalLight(const std::string& lightName, const DirectionalLight& light);
+	void setPointLight(const std::string& lightName, const PointLight& light, int index);
 	unsigned int m_VBO;
 	unsigned int m_VAO;
 	unsigned int m_EBO;
 	std::shared_ptr<Shader> m_shader;
+	Transformation m_transformation;
 };

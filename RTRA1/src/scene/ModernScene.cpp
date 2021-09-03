@@ -1,9 +1,6 @@
 #include "ModernScene.h"
 
-#include <iostream>
-
-// TODO: Creates a copy of the shader so destructor is called
-// once ModernScene's constructor is complete
+#include <sstream>
 
 ModernScene::ModernScene(std::shared_ptr<Shader> shader)
 	: m_VAO(0)
@@ -32,6 +29,14 @@ void ModernScene::decrementSubdivisions() {
 	updateLayout();
 }
 
+void ModernScene::incrementLights() {
+	SceneBase::incrementLights();
+}
+
+void ModernScene::decrementLights() {
+	SceneBase::decrementLights();
+}
+
 void ModernScene::updateLayout() {
 	glBindVertexArray(m_VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
@@ -39,4 +44,50 @@ void ModernScene::updateLayout() {
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * m_menger.indices.size(), m_menger.indices.data(), GL_STATIC_DRAW);
+}
+
+void ModernScene::setDirectionalLight(const std::string& lightName, const DirectionalLight& light) {
+	m_shader->setVec3f("directionalLight.ambient", light.ambient);
+	m_shader->setVec3f("directionalLight.diffuse", light.diffuse);
+	m_shader->setVec3f("directionalLight.specular", light.specular);
+	m_shader->setVec3f("directionalLight.direction", light.direction);
+}
+
+void ModernScene::setPointLight(const std::string& lightName, const PointLight& light, int index) {
+	std::stringstream ss;
+
+	ss << lightName << "[" << index << "].position";
+	m_shader->setVec3f(ss.str(), light.position);
+
+	ss.str(std::string());
+
+	ss << lightName << "[" << index << "].ambient";
+	m_shader->setVec3f(ss.str(), light.ambient);
+
+	ss.str(std::string());
+
+	ss << lightName << "[" << index << "].diffuse";
+	m_shader->setVec3f(ss.str(), light.diffuse);
+
+	ss.str(std::string());
+
+	ss << lightName << "[" << index << "].specular";
+	m_shader->setVec3f(ss.str(), light.specular);
+
+	ss.str(std::string());
+
+	ss << lightName << "[" << index << "].constant";
+	m_shader->setFloat(ss.str(), light.constant);
+
+	ss.str(std::string());
+
+	ss << lightName << "[" << index << "].linear";
+	m_shader->setFloat(ss.str(), light.linear);
+
+	ss.str(std::string());
+
+	ss << lightName << "[" << index << "].quadratic";
+	m_shader->setFloat(ss.str(), light.quadratic);
+
+	ss.str(std::string());
 }

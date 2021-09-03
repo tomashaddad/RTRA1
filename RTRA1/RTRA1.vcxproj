@@ -97,6 +97,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\include;$(SolutionDir)dependencies\GLAD\include;$(ProjectDir)src;$(ProjectDir)src\dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -114,6 +115,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\include;$(SolutionDir)dependencies\GLAD\include;$(ProjectDir)src;$(ProjectDir)src\dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,6 +133,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\include;$(SolutionDir)dependencies\GLAD\include;$(ProjectDir)src;$(ProjectDir)src\dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,6 +151,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\SDL2\include;$(SolutionDir)dependencies\GLAD\include;$(ProjectDir)src;$(ProjectDir)src\dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,7 +165,8 @@
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\FPSTimer.cpp" />
-    <ClCompile Include="src\MaterialFactory.cpp" />
+    <ClCompile Include="src\LightManager.cpp" />
+    <ClCompile Include="src\MaterialManager.cpp" />
     <ClCompile Include="src\scene\ModernScene.cpp" />
     <ClCompile Include="src\scene\Scene00.cpp" />
     <ClCompile Include="src\api\Shader.cpp" />
@@ -173,15 +178,18 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\dependencies\glm\detail\glm.cpp" />
     <ClCompile Include="src\scene\Scene02.cpp" />
+    <ClCompile Include="src\scene\Scene03.cpp" />
     <ClCompile Include="src\scene\SceneBase.cpp" />
     <ClCompile Include="src\SDLManager.cpp" />
     <ClCompile Include="src\api\VAO.cpp" />
     <ClCompile Include="src\api\VBO.cpp" />
     <ClCompile Include="src\Text.cpp" />
+    <ClCompile Include="src\Transformation.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\MaterialFactory.h" />
+    <ClInclude Include="src\LightManager.h" />
+    <ClInclude Include="src\MaterialManager.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\FPSTimer.h" />
     <ClInclude Include="src\scene\ModernScene.h" />
@@ -193,6 +201,7 @@
     <ClInclude Include="src\GLManager.h" />
     <ClInclude Include="src\RTRApp.h" />
     <ClInclude Include="src\scene\Scene02.h" />
+    <ClInclude Include="src\scene\Scene03.h" />
     <ClInclude Include="src\scene\SceneBase.h" />
     <ClInclude Include="src\dependencies\glm\common.hpp" />
     <ClInclude Include="src\dependencies\glm\detail\compute_common.hpp" />
@@ -481,6 +490,7 @@
     <ClInclude Include="src\api\VAO.h" />
     <ClInclude Include="src\api\VBO.h" />
     <ClInclude Include="src\Text.h" />
+    <ClInclude Include="src\Transformation.h" />
     <ClInclude Include="src\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
@@ -625,6 +635,9 @@
     <None Include="src\shaders\scene00\lighting.vert" />
     <None Include="src\shaders\scene00\cube_phong.frag" />
     <None Include="src\shaders\scene00\cube.vert" />
+    <None Include="src\shaders\scene03\menger.frag" />
+    <None Include="src\shaders\scene03\menger.geom" />
+    <None Include="src\shaders\scene03\menger.vert" />
     <None Include="src\shaders\scene02\menger.frag" />
     <None Include="src\shaders\scene02\menger.geom" />
     <None Include="src\shaders\scene02\menger.vert" />

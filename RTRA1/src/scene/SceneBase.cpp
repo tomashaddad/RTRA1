@@ -8,6 +8,7 @@
 SceneBase::SceneBase()
 	: m_maxSubvisions(2)
 	, m_edgeLength(1)
+	, m_lightNumber(1)
 	, m_baseIndices({
 		0, 2, 1, 1, 2, 3,	// +z
 		1, 3, 5, 5, 3, 7,	// +x
@@ -35,6 +36,18 @@ void SceneBase::decrementSubdivisions() {
 	}
 	clear();
 	recursiveMenger(0, 0, 0, m_edgeLength, 0, --m_maxSubvisions);
+}
+
+void SceneBase::incrementLights() {
+	if (m_lightNumber < 8) {
+		++m_lightNumber;
+	}
+}
+
+void SceneBase::decrementLights() {
+	if (m_lightNumber > 0) {
+		--m_lightNumber;
+	}
 }
 
 void SceneBase::recursiveMenger(float x, float y, float z, float edgeLength, int currentSubdivision, int maxSubdivisions) {

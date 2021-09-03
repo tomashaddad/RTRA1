@@ -30,10 +30,13 @@ void Scene01::init() {
 
 	glEnable(GL_LIGHTING);
 
-	//float worldAmbient[] = { 1.0, 1.0, 1.0, 1.0 };
-	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, worldAmbient);
+	//const std::vector<PointLight>& lights = m_lightManager.getPointLights();
 
-	// directional light source
+	//glLightfv(GL_LIGHT0, GL_AMBIENT, &lights[0].ambient[0]);
+	//glLightfv(GL_LIGHT0, GL_DIFFUSE, &lights[0].diffuse[0]);
+	//glLightfv(GL_LIGHT0, GL_SPECULAR, &lights[0].specular[0]);
+	//glLightfv(GL_LIGHT0, GL_POSITION, &lights[0].position[0]);
+
 	float ambient0[] = { 0.2, 0.2, 0.2, 1.0 };
 	float diffuse0[] = { 1.0, 1.0, 1.0, 1.0 };
 	float specular0[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -44,23 +47,29 @@ void Scene01::init() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0);
 	glLightfv(GL_LIGHT0, GL_POSITION, position0);
+
 	glEnable(GL_LIGHT0);
+	//glEnable(GL_LIGHT1);
+	//glEnable(GL_LIGHT2);
+	//glEnable(GL_LIGHT3);
+	//glEnable(GL_LIGHT4);
+	//glEnable(GL_LIGHT5);
+	//glEnable(GL_LIGHT6);
+	//glEnable(GL_LIGHT7);
 
 	glEnable(GL_NORMALIZE);
 }
-
-// take index, mod by 36, divide the result by 3
 
 void Scene01::render() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	// TODO: Fix light moving with camera?
+	//float position0[] = { 5.0, 0.0, 5.0, 1.0 };
+	//glLightfv(GL_LIGHT0, GL_POSITION, position0);
 	glMultMatrixf((const float*)glm::value_ptr(RTRApp::instance().getCamera()->getViewMatrix()));
-	float position0[] = { 5.0, 0.0, 5.0, 1.0 };
-	glLightfv(GL_LIGHT0, GL_POSITION, position0);
 
 	glPushMatrix();
-	//glScalef(10.0f, 10.0f, 10.0f);
 		glBegin(GL_TRIANGLES);
 		for (int index = 0; index <= m_menger.indices.size() - 3; index += 3) {
 			glm::vec3& p1 = m_menger.vertices[m_menger.indices[index + 0]];
@@ -69,13 +78,13 @@ void Scene01::render() {
 			glm::vec3 normal = glm::normalize(glm::triangleNormal(p1, p2, p3));
 
 			if (abs(normal.x) == 1) {
-				m_materialFactory.setMaterial(MaterialName::RUBY);
+				m_materialManager.setMaterial(MaterialName::RUBY);
 			}
 			else if (abs(normal.y) == 1) {
-				m_materialFactory.setMaterial(MaterialName::EMERALD);
+				m_materialManager.setMaterial(MaterialName::EMERALD);
 			}
 			else if (abs(normal.z) == 1) {
-				m_materialFactory.setMaterial(MaterialName::TURQUOISE);
+				m_materialManager.setMaterial(MaterialName::TURQUOISE);
 			}
 
 			glNormal3f(normal.x, normal.y, normal.z);

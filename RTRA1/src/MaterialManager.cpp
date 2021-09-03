@@ -1,9 +1,9 @@
-#include "MaterialFactory.h"
+#include "MaterialManager.h"
 
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 
-MaterialFactory::MaterialFactory()
+MaterialManager::MaterialManager()
 {
 	m_ruby = Material({
 		glm::vec3(0.1745f, 0.01175f, 0.01175f),
@@ -26,7 +26,7 @@ MaterialFactory::MaterialFactory()
 	m_activeMaterial = &m_ruby;
 }
 
-void MaterialFactory::setMaterial(MaterialName name) {
+void MaterialManager::setMaterial(MaterialName name) {
 	switch (name) {
 	case MaterialName::RUBY:
 		m_activeMaterial = &m_ruby;
@@ -45,7 +45,7 @@ void MaterialFactory::setMaterial(MaterialName name) {
 	glMaterialf(GL_FRONT, GL_SHININESS, m_activeMaterial->shininess);
 }
 
-const Material MaterialFactory::getMaterialByName(MaterialName name) const {
+const Material MaterialManager::getMaterialByName(MaterialName name) const {
 	switch (name) {
 	case MaterialName::RUBY:
 		return m_ruby;
