@@ -5,7 +5,7 @@
 // TODO: Creates a copy of the shader so destructor is called
 // once ModernScene's constructor is complete
 
-ModernScene::ModernScene(Shader shader)
+ModernScene::ModernScene(std::shared_ptr<Shader> shader)
 	: m_VAO(0)
 	, m_VBO(0)
 	, m_EBO(0)

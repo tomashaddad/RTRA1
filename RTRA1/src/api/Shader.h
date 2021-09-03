@@ -11,7 +11,11 @@ public:
 	Shader(const std::string& vertexShader, const std::string& fragmentShader, const std::string& geometryShader = "", const bool& fromFile = true);
 	~Shader();
 
-	bool bind() const;
+	// Prevent copying and assignment of shaders
+	Shader& operator=(const Shader&) = delete;
+	Shader(const Shader&) = delete;
+
+	void bind() const;
 	void unbind() const;
 
 	const GLuint getID() const;
@@ -38,4 +42,3 @@ private:
 	GLuint m_fragmentID;
 	GLuint m_geometryID;
 };
-

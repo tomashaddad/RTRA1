@@ -121,14 +121,11 @@ std::string Shader::parseFile(const std::string& file) {
 }
 
 Shader::~Shader() {
-	//glDeleteProgram(m_programID);
+	glDeleteProgram(m_programID);
 }
 
-bool Shader::bind() const {
-
-		glUseProgram(m_programID);
-
-	return m_compiled;
+void Shader::bind() const {
+	glUseProgram(m_programID);
 }
 
 void Shader::unbind() const {
