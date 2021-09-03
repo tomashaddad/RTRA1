@@ -57,11 +57,13 @@ void Scene03::render() {
 	m_shader->setMaterial("emerald", m_materialManager.getMaterialByName(MaterialName::EMERALD));
 	m_shader->setMaterial("turquoise", m_materialManager.getMaterialByName(MaterialName::TURQUOISE));
 
-	glm::vec3 lightPos(5.0f, 0.0f, 5.0f);
-	m_shader->setVec3f("light.position", lightPos);
-	m_shader->setVec3f("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
-	m_shader->setVec3f("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
-	m_shader->setVec3f("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+	m_shader->setInt("lightNumber", m_lightNumber);
+
+	setDirectionalLight("directionalLight", m_lightManager.getDirectionalLight());
+
+	for (int i = 0; i < m_lightNumber; ++i) {
+		setPointLight("pointLights", m_lightManager.getPointLights()[i], i);
+	}
 
 	glBindVertexArray(m_VAO);
 	
