@@ -44,7 +44,7 @@ void Scene03::init() {
 }
 
 void Scene03::render() {
-	//glm::mat4 model = m_transformation.getModelMatrix();
+	glm::mat4 model = m_transformation.getModelMatrix(); // default
 	glm::mat4 view = RTRApp::instance().getCamera()->getViewMatrix();
 	glm::mat4 projection = RTRApp::instance().getCamera()->getProjectionMatrix();
 
@@ -57,8 +57,8 @@ void Scene03::render() {
 	m_shader->setMaterial("emerald", m_materialManager.getMaterialByName(MaterialName::EMERALD));
 	m_shader->setMaterial("turquoise", m_materialManager.getMaterialByName(MaterialName::TURQUOISE));
 
+	m_shader->setInt("lighting", m_lighting);
 	m_shader->setInt("lightNumber", m_lightNumber);
-
 	setDirectionalLight("directionalLight", m_lightManager.getDirectionalLight());
 
 	for (int i = 0; i < m_lightNumber; ++i) {

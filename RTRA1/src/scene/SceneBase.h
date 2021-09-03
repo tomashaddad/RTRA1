@@ -22,10 +22,11 @@ public:
 	virtual void decrementSubdivisions();
 	virtual void incrementLights();
 	virtual void decrementLights();
+	virtual void toggleLighting();
 
-	virtual const unsigned int getMaxSubdivisions() const;
-	virtual const unsigned int getVerticesSize() const;
-
+	const unsigned int getMaxSubdivisions() const;
+	const unsigned int getVerticesSize() const;
+	const bool hasLights() const;
 
 protected:
 	virtual void clear();
@@ -35,6 +36,7 @@ protected:
 	unsigned int m_maxSubvisions;
 	float m_edgeLength;
 	unsigned int m_lightNumber;
+	bool m_lighting;
 
 	Menger m_menger;
 	MaterialManager m_materialManager;

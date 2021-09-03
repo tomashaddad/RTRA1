@@ -8,7 +8,7 @@
 #include "scene/Scene01.h"
 #include "scene/Scene02.h"
 #include "scene/Scene03.h"
-//#include "scene/Scene04.h"
+#include "scene/Scene04.h"
 //#include "scene/Scene05.h"
 //#include "scene/Scene06.h"
 
@@ -95,7 +95,7 @@ void RTRApp::checkInput(float dt) {
 					getGLManager()->toggleDepthTesting();
 					break;
 				case SDLK_l:
-					// TOGGLE LIGHTING
+					m_currentScene->toggleLighting();
 					break;
 				case SDLK_LESS:
 				case SDLK_COMMA:
@@ -168,9 +168,9 @@ void RTRApp::switchToScene(unsigned int sceneNumber) {
 	case 3:
 		m_currentScene = std::make_unique<Scene03>();
 		break;
-	//case 4:
-	//	m_currentScene = std::make_unique<Scene04>();
-	//	break;
+	case 4:
+		m_currentScene = std::make_unique<Scene04>();
+		break;
 	//case 5:
 	//	m_currentScene = std::make_unique<Scene05>();
 	//	break;

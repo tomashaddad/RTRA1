@@ -9,6 +9,7 @@ SceneBase::SceneBase()
 	: m_maxSubvisions(2)
 	, m_edgeLength(1)
 	, m_lightNumber(1)
+	, m_lighting(true)
 	, m_baseIndices({
 		0, 2, 1, 1, 2, 3,	// +z
 		1, 3, 5, 5, 3, 7,	// +x
@@ -48,6 +49,10 @@ void SceneBase::decrementLights() {
 	if (m_lightNumber > 0) {
 		--m_lightNumber;
 	}
+}
+
+void SceneBase::toggleLighting() {
+	m_lighting = !m_lighting;
 }
 
 void SceneBase::recursiveMenger(float x, float y, float z, float edgeLength, int currentSubdivision, int maxSubdivisions) {
@@ -103,4 +108,8 @@ const unsigned int SceneBase::getMaxSubdivisions() const {
 
 const unsigned int SceneBase::getVerticesSize() const {
 	return m_menger.vertices.size();
+}
+
+const bool SceneBase::hasLights() const {
+	return m_lighting;
 }

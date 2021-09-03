@@ -32,18 +32,19 @@ void Text::update() const {
 		const int height = instance.getSDLManager()->getWindowHeight();
 		const unsigned int maxSubdivisions = instance.getScene()->getMaxSubdivisions();
 		const unsigned int verticesSize = instance.getScene()->getVerticesSize();
+		const bool hasLighting = instance.getScene()->hasLights();
 		const bool depthTesting = instance.getGLManager()->isDepthTesting();
 		const bool cullingBackFaces = instance.getGLManager()->isCullingBackFaces();
 
 		text
 			<< "Scene: " << scene << std::endl
-			<< "Display: " << width << " x " << height << "(" << refreshRate << " Hz)" << std::endl
+			<< "Display: " << width << " x " << height << " (" << refreshRate << " Hz)" << std::endl
 			<< "FPS: " << fps << std::endl
 			<< "Subdivisions: " << maxSubdivisions << std::endl
 			<< "Vertices: " << verticesSize << std::endl
 			<< "Faces: " << ((verticesSize / 8) * 2 * 6) << std::endl // 8 verts per cube, 2 faces per 6 sides
-			<< "Data: " << "Placeholder" << std::endl
-			<< "Lighting: " << "Placeholder" << std::endl
+			<< "Data: " << verticesSize * 12 << " bytes" << std::endl // every vertex is made up of 3 4-byte floats
+			<< "Lighting: " << (hasLighting ? "On" : "Off") << std::endl
 			<< "Depth testing: " << (depthTesting ? "On" : "Off") << std::endl
 			<< "Backface culling: " << (cullingBackFaces ? "On" : "Off") << std::endl;
 	}

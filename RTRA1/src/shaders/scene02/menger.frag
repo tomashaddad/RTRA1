@@ -31,6 +31,7 @@ uniform vec3 viewPos;
 uniform DirectionalLight directionalLight;
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
 uniform int lightNumber;
+uniform bool lighting;
 
 in Material material;
 in vec3 outNormal;
@@ -43,13 +44,18 @@ vec3 calculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir
 vec3 calculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
 void main() {
-    vec3 norm = normalize(outNormal); 
-    vec3 viewDir = normalize(viewPos - geometryOut.fragmentPosition);
+    vec3 result;
+    if (lighting) {
+        vec3 norm = normalize(outNormal); 
+        vec3 viewDir = normalize(viewPos - geometryOut.fragmentPosition);
     
-    vec3 result = calculateDirectionalLight(directionalLight, norm, viewDir);
+        result = calculateDirectionalLight(directionalLight, norm, viewDir);
 
-    for (int i = 0; i < lightNumber; ++i) {
-        result += calculatePointLight(pointLights[i], norm, geometryOut.fragmentPosition, viewDir);
+        for (int i = 0; i < lightNumber; ++i) {
+            result += calculatePointLight(pointLights[i], norm, geometryOut.fragmentPosition, viewDir);
+        }
+    } else {
+        result = material.ambient * material.diffuse;
     }
 
     FragColor = clamp(vec4(result, 1.0), 0.0, 1.0);

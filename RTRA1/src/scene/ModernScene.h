@@ -17,9 +17,6 @@ public:
 	virtual void incrementSubdivisions() override;
 	virtual void decrementSubdivisions() override;
 
-	virtual void incrementLights() override;
-	virtual void decrementLights() override;
-
 protected:
 	void updateLayout();
 	void setDirectionalLight(const std::string& lightName, const DirectionalLight& light);

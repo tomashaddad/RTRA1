@@ -29,14 +29,6 @@ void ModernScene::decrementSubdivisions() {
 	updateLayout();
 }
 
-void ModernScene::incrementLights() {
-	SceneBase::incrementLights();
-}
-
-void ModernScene::decrementLights() {
-	SceneBase::decrementLights();
-}
-
 void ModernScene::updateLayout() {
 	glBindVertexArray(m_VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);

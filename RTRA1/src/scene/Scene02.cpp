@@ -45,6 +45,8 @@ void Scene02::render() {
 	m_shader->setMaterial("emerald", m_materialManager.getMaterialByName(MaterialName::EMERALD));
 	m_shader->setMaterial("turquoise", m_materialManager.getMaterialByName(MaterialName::TURQUOISE));
 
+	m_shader->setInt("lighting", m_lighting);
+
 	m_shader->setInt("lightNumber", m_lightNumber);
 
 	setDirectionalLight("directionalLight", m_lightManager.getDirectionalLight());
