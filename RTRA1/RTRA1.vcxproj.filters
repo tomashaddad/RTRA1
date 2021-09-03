@@ -1425,5 +1425,8 @@
     <None Include="src\shaders\scene03\menger.frag" />
     <None Include="src\shaders\scene03\menger.geom" />
     <None Include="src\shaders\scene03\menger.vert" />
+    <None Include="src\shaders\scene04\menger.vert" />
+    <None Include="src\shaders\scene04\menger.frag" />
+    <None Include="src\shaders\scene04\menger.geom" />
   </ItemGroup>
 </Project>

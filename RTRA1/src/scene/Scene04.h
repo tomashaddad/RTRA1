@@ -17,4 +17,5 @@ public:
 private:
 	float m_rotationSpeed;
 	std::array<Transformation, 9> m_transformations;
+	glm::mat4 m_models[9];
 };

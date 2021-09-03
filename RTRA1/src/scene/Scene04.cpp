@@ -9,9 +9,9 @@
 
 Scene04::Scene04()
 	: ModernScene(std::make_shared<Shader>(
-		"./src/shaders/scene03/menger.vert",
-		"./src/shaders/scene03/menger.frag",
-		"./src/shaders/scene03/menger.geom"))
+		"./src/shaders/scene04/menger.vert",
+		"./src/shaders/scene04/menger.frag",
+		"./src/shaders/scene04/menger.geom"))
 	, m_rotationSpeed(10.0f)
 {
 	// A sphere has radius r = sqrt(3)s/2 for a cube of side length s
@@ -44,7 +44,7 @@ void Scene04::init() {
 }
 
 void Scene04::render() {
-	//glm::mat4 model = m_transformation.getModelMatrix();
+	glm::mat4 model = m_transformation.getModelMatrix();
 	glm::mat4 view = RTRApp::instance().getCamera()->getViewMatrix();
 	glm::mat4 projection = RTRApp::instance().getCamera()->getProjectionMatrix();
 
@@ -58,7 +58,7 @@ void Scene04::render() {
 	m_shader->setMaterial("turquoise", m_materialManager.getMaterialByName(MaterialName::TURQUOISE));
 
 	m_shader->setInt("lightNumber", m_lightNumber);
-
+	m_shader->setInt("lighting", m_lighting);
 	setDirectionalLight("directionalLight", m_lightManager.getDirectionalLight());
 
 	for (int i = 0; i < m_lightNumber; ++i) {
@@ -67,9 +67,9 @@ void Scene04::render() {
 
 	glBindVertexArray(m_VAO);
 
-	for (auto& transformation : m_transformations) {
-		transformation.rotateByDegrees(1);
-		m_shader->setMat4("model", transformation.getModelMatrix());
-		glDrawElements(GL_TRIANGLES, m_menger.indices.size(), GL_UNSIGNED_INT, 0);
+	for (auto i = 0; i < m_transformations.size(); ++i) {
+		m_transformations[i].rotateByDegrees(1);
+		m_shader->setMat4("models[" + std::to_string(i) + "]", m_transformations[i].getModelMatrix());
 	}
+	glDrawElementsInstanced(GL_TRIANGLES, m_menger.indices.size(), GL_UNSIGNED_INT, 0, 9);
 }

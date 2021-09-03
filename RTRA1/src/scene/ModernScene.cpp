@@ -1,6 +1,6 @@
 #include "ModernScene.h"
 
-#include <sstream>
+#include <string>
 
 ModernScene::ModernScene(std::shared_ptr<Shader> shader)
 	: m_VAO(0)
@@ -46,40 +46,11 @@ void ModernScene::setDirectionalLight(const std::string& lightName, const Direct
 }
 
 void ModernScene::setPointLight(const std::string& lightName, const PointLight& light, int index) {
-	std::stringstream ss;
-
-	ss << lightName << "[" << index << "].position";
-	m_shader->setVec3f(ss.str(), light.position);
-
-	ss.str(std::string());
-
-	ss << lightName << "[" << index << "].ambient";
-	m_shader->setVec3f(ss.str(), light.ambient);
-
-	ss.str(std::string());
-
-	ss << lightName << "[" << index << "].diffuse";
-	m_shader->setVec3f(ss.str(), light.diffuse);
-
-	ss.str(std::string());
-
-	ss << lightName << "[" << index << "].specular";
-	m_shader->setVec3f(ss.str(), light.specular);
-
-	ss.str(std::string());
-
-	ss << lightName << "[" << index << "].constant";
-	m_shader->setFloat(ss.str(), light.constant);
-
-	ss.str(std::string());
-
-	ss << lightName << "[" << index << "].linear";
-	m_shader->setFloat(ss.str(), light.linear);
-
-	ss.str(std::string());
-
-	ss << lightName << "[" << index << "].quadratic";
-	m_shader->setFloat(ss.str(), light.quadratic);
-
-	ss.str(std::string());
+	m_shader->setVec3f(lightName + "[" + std::to_string(index) + "].position", light.position);
+	m_shader->setVec3f(lightName + "[" + std::to_string(index) + "].ambient", light.ambient);
+	m_shader->setVec3f(lightName + "[" + std::to_string(index) + "].diffuse", light.diffuse);
+	m_shader->setVec3f(lightName + "[" + std::to_string(index) + "].specular", light.specular);
+	m_shader->setFloat(lightName + "[" + std::to_string(index) + "].constant", light.constant);
+	m_shader->setFloat(lightName + "[" + std::to_string(index) + "].linear", light.linear);
+	m_shader->setFloat(lightName + "[" + std::to_string(index) + "].quadratic", light.quadratic);
 }
