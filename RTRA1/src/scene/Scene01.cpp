@@ -35,16 +35,6 @@ void Scene01::init() {
 	glLoadIdentity();
 
 	createLights();
-
-	float ambient0[] = { 0.2, 0.2, 0.2, 1.0 };
-	float diffuse0[] = { 0.3, 0.3, 0.3, 1.0 };
-	float specular0[] = { 0.3, 0.3, 0.3, 1.0 };
-	float position0[] = { 0.0, 0.0, 0.0, 1.0 };
-
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0);
-	glLightfv(GL_LIGHT0, GL_POSITION, position0);
 }
 
 void Scene01::render() {
