@@ -38,14 +38,14 @@ void ModernScene::updateLayout() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * m_menger.indices.size(), m_menger.indices.data(), GL_STATIC_DRAW);
 }
 
-void ModernScene::setDirectionalLight(const std::string& lightName, const DirectionalLight& light) {
+void ModernScene::setDirectionalLight(const std::string lightName, const DirectionalLight light) {
 	m_shader->setVec3f("directionalLight.ambient", light.ambient);
 	m_shader->setVec3f("directionalLight.diffuse", light.diffuse);
 	m_shader->setVec3f("directionalLight.specular", light.specular);
 	m_shader->setVec3f("directionalLight.direction", light.direction);
 }
 
-void ModernScene::setPointLight(const std::string& lightName, const PointLight& light, int index) {
+void ModernScene::setPointLight(const std::string lightName, const PointLight light, int index) {
 	m_shader->setVec3f(lightName + "[" + std::to_string(index) + "].position", light.position);
 	m_shader->setVec3f(lightName + "[" + std::to_string(index) + "].ambient", light.ambient);
 	m_shader->setVec3f(lightName + "[" + std::to_string(index) + "].diffuse", light.diffuse);
@@ -53,4 +53,11 @@ void ModernScene::setPointLight(const std::string& lightName, const PointLight& 
 	m_shader->setFloat(lightName + "[" + std::to_string(index) + "].constant", light.constant);
 	m_shader->setFloat(lightName + "[" + std::to_string(index) + "].linear", light.linear);
 	m_shader->setFloat(lightName + "[" + std::to_string(index) + "].quadratic", light.quadratic);
+}
+
+void ModernScene::setMaterial(const std::string materialName, const Material material, int index) {
+	m_shader->setVec3f(materialName + "[" + std::to_string(index) + "].ambient", material.ambient);
+	m_shader->setVec3f(materialName + "[" + std::to_string(index) + "].diffuse", material.diffuse);
+	m_shader->setVec3f(materialName + "[" + std::to_string(index) + "].specular", material.specular);
+	m_shader->setFloat(materialName + "[" + std::to_string(index) + "].shininess", material.shininess);
 }

@@ -19,8 +19,9 @@ public:
 
 protected:
 	void updateLayout();
-	void setDirectionalLight(const std::string& lightName, const DirectionalLight& light);
-	void setPointLight(const std::string& lightName, const PointLight& light, int index);
+	void setDirectionalLight(const std::string lightName, const DirectionalLight light);
+	void setPointLight(const std::string lightName, const PointLight light, int index);
+	void setMaterial(const std::string materialName, const Material material, int index);
 	unsigned int m_VBO;
 	unsigned int m_VAO;
 	unsigned int m_EBO;

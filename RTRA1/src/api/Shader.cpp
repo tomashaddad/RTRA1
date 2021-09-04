@@ -180,8 +180,8 @@ void Shader::setMaterial(const std::string& materialName, const Material& materi
 	const std::string specular = materialName + ".specular";
 	const std::string shininess = materialName + ".shininess";
 
-	glUniform3fv(getUniformLocation(ambient), 1, glm::value_ptr(material.m_ambient));
-	glUniform3fv(getUniformLocation(diffuse), 1, glm::value_ptr(material.m_diffuse));
-	glUniform3fv(getUniformLocation(specular), 1, glm::value_ptr(material.m_specular));
+	glUniform3fv(getUniformLocation(ambient), 1, glm::value_ptr(material.ambient));
+	glUniform3fv(getUniformLocation(diffuse), 1, glm::value_ptr(material.diffuse));
+	glUniform3fv(getUniformLocation(specular), 1, glm::value_ptr(material.specular));
 	glUniform1f(getUniformLocation(shininess), material.shininess);
 }

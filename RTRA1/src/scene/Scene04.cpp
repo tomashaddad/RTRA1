@@ -53,14 +53,14 @@ void Scene04::render() {
 	m_shader->setMat4("projection", projection);
 	m_shader->setVec3f("viewPos", RTRApp::instance().getCamera()->getPosition());
 
-	m_shader->setMaterial("ruby", m_materialManager.getMaterialByName(MaterialName::RUBY));
-	m_shader->setMaterial("emerald", m_materialManager.getMaterialByName(MaterialName::EMERALD));
-	m_shader->setMaterial("turquoise", m_materialManager.getMaterialByName(MaterialName::TURQUOISE));
+	const std::vector<Material>& materials = m_materialManager.getMaterials();
+	for (int i = 0; i < materials.size(); ++i) {
+		setMaterial("materials", materials[i], i);
+	}
 
 	m_shader->setInt("lightNumber", m_lightNumber);
 	m_shader->setInt("lighting", m_lighting);
 	setDirectionalLight("directionalLight", m_lightManager.getDirectionalLight());
-
 	for (int i = 0; i < m_lightNumber; ++i) {
 		setPointLight("pointLights", m_lightManager.getPointLights()[i], i);
 	}

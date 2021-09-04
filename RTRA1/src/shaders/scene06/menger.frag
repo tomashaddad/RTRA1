@@ -33,8 +33,7 @@ uniform PointLight pointLights[MAX_POINT_LIGHTS];
 uniform int lightNumber;
 uniform bool lighting;
 
-flat in int matindex;
-uniform Material materials[3];
+in Material material;
 in vec3 outNormal;
 
 in gData {
@@ -51,31 +50,31 @@ void main() {
         vec3 viewDir = normalize(viewPos - geometryOut.fragmentPosition);
     
         result = calculateDirectionalLight(directionalLight, norm, viewDir);
-        
+
         for (int i = 0; i < lightNumber; ++i) {
             result += calculatePointLight(pointLights[i], norm, geometryOut.fragmentPosition, viewDir);
         }
     } else {
-        result = materials[matindex].ambient * materials[matindex].diffuse;
+        result = material.ambient * material.diffuse;
     }
-
-    FragColor = clamp(vec4(result, 1.0), 0.0, 1.0);
+    FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    // FragColor = clamp(vec4(result, 1.0), 0.0, 1.0);
 }
 
 vec3 calculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) {
     vec3 lightDir = normalize(light.position - geometryOut.fragmentPosition);
 
     // Ambient
-    vec3 ambient = materials[matindex].ambient * light.ambient;
+    vec3 ambient = material.ambient * light.ambient;
 
     // Diffuse
     float diff = max(dot(normal, lightDir), 0.0);
-    vec3 diffuse = materials[matindex].diffuse * light.diffuse * diff;
+    vec3 diffuse = material.diffuse * light.diffuse * diff;
 
     // Specular
     vec3 halfwayDir = normalize(lightDir + viewDir);
-    float spec = pow(max(dot(normal, halfwayDir), 0.0), materials[matindex].shininess);
-    vec3 specular = materials[matindex].specular * light.specular * spec;
+    float spec = pow(max(dot(normal, halfwayDir), 0.0), material.shininess);
+    vec3 specular = material.specular * light.specular * spec;
 
     // Attenuation
     float distance = length(light.position - fragPos);
@@ -92,16 +91,16 @@ vec3 calculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir
     vec3 lightDir = normalize(-light.direction);
     
     // Ambient
-    vec3 ambient = materials[matindex].ambient * light.ambient;
+    vec3 ambient = material.ambient * light.ambient;
 
     // Diffuse
     float diff = max(dot(normal, lightDir), 0.0);
-    vec3 diffuse = materials[matindex].diffuse * light.diffuse * diff;
+    vec3 diffuse = material.diffuse * light.diffuse * diff;
 
     // Specular
-    vec3 halfwayDir = normalize(lightDir + viewDir);
-    float spec = pow(max(dot(normal, halfwayDir), 0.0), materials[matindex].shininess);
-    vec3 specular = materials[matindex].specular * light.specular * spec;
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    vec3 specular = material.specular * light.specular * spec;
 
     return ambient + diffuse + specular;
 }
