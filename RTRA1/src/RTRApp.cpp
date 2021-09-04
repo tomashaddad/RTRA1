@@ -30,16 +30,9 @@ RTRApp::RTRApp(const std::string& title, unsigned int width, unsigned int height
 }
 
 void RTRApp::run() {
-	m_currentScene->init();
-
-	unsigned int start = 0;
-	unsigned int end = 0;
-	unsigned int counter = 0;
-	float runningFps = 0;
-
+	getScene()->init();
 	while (m_state != State::QUIT) {
 		getFPSTimer()->start();
-
 
 		float dt = getSDLManager()->getFrameDeltaTime();
 		checkInput(dt);
@@ -95,21 +88,21 @@ void RTRApp::checkInput(float dt) {
 					getGLManager()->toggleDepthTesting();
 					break;
 				case SDLK_l:
-					m_currentScene->toggleLighting();
+					getScene()->toggleLighting();
 					break;
 				case SDLK_LESS:
 				case SDLK_COMMA:
-					m_currentScene->decrementLights();
+					getScene()->decrementLights();
 					break;
 				case SDLK_GREATER:
 				case SDLK_PERIOD:
-					m_currentScene->incrementLights();
+					getScene()->incrementLights();
 					break;
 				case SDLK_EQUALS:
-					m_currentScene->incrementSubdivisions();
+					getScene()->incrementSubdivisions();
 					break;
 				case SDLK_MINUS:
-					m_currentScene->decrementSubdivisions();
+					getScene()->decrementSubdivisions();
 					break;
 				case SDLK_ESCAPE:
 					m_state = State::QUIT;

@@ -33,10 +33,9 @@ public:
 
 	void addPointLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular,
 		glm::vec3 position, float constant, float linear, float quadratic);
-
 	const DirectionalLight& getDirectionalLight() const;
-
 	const std::vector<PointLight>& getPointLights() const;
+	const float getTypeAsFloat(Light light) const;
 private:
 	DirectionalLight m_directional;
 	std::vector<PointLight> m_pointLights;

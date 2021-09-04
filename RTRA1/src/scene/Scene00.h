@@ -4,14 +4,14 @@
 #include <memory>
 #include "api/Shader.h"
 
+// This scene is just a sandbox!
+
 class Scene00 : public SceneBase {
 public:
 	Scene00();
 	~Scene00();
 	virtual void render() override;
 	virtual void init() override;
-	virtual void incrementSubdivisions() {} // not needed in sandbox
-	virtual void decrementSubdivisions() {} // not needed in sandbox
 
 private:
 	unsigned int m_VBO;
