@@ -180,6 +180,7 @@
     <ClCompile Include="src\scene\Scene02.cpp" />
     <ClCompile Include="src\scene\Scene03.cpp" />
     <ClCompile Include="src\scene\Scene04.cpp" />
+    <ClCompile Include="src\scene\Scene06.cpp" />
     <ClCompile Include="src\scene\SceneBase.cpp" />
     <ClCompile Include="src\SDLManager.cpp" />
     <ClCompile Include="src\api\VAO.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="src\scene\Scene02.h" />
     <ClInclude Include="src\scene\Scene03.h" />
     <ClInclude Include="src\scene\Scene04.h" />
+    <ClInclude Include="src\scene\Scene06.h" />
     <ClInclude Include="src\scene\SceneBase.h" />
     <ClInclude Include="src\dependencies\glm\common.hpp" />
     <ClInclude Include="src\dependencies\glm\detail\compute_common.hpp" />
@@ -646,6 +648,9 @@
     <None Include="src\shaders\scene04\menger.frag" />
     <None Include="src\shaders\scene04\menger.geom" />
     <None Include="src\shaders\scene04\menger.vert" />
+    <None Include="src\shaders\scene06\menger.frag" />
+    <None Include="src\shaders\scene06\menger.geom" />
+    <None Include="src\shaders\scene06\menger.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

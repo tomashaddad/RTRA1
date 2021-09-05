@@ -26,15 +26,22 @@ void Text::update() const {
 		text << fps << " FPS";
 	}
 	else {
-		const unsigned int refreshRate = instance.getSDLManager()->getRefreshRate();
-		const unsigned int scene = instance.getCurrentSceneNumber();
-		const int width = instance.getSDLManager()->getWindowWidth();
-		const int height = instance.getSDLManager()->getWindowHeight();
-		const unsigned int maxSubdivisions = instance.getScene()->getMaxSubdivisions();
-		const unsigned int verticesSize = instance.getScene()->getVerticesSize();
-		const bool hasLighting = instance.getScene()->hasLights();
-		const bool depthTesting = instance.getGLManager()->isDepthTesting();
-		const bool cullingBackFaces = instance.getGLManager()->isCullingBackFaces();
+		unsigned int refreshRate = instance.getSDLManager()->getRefreshRate();
+		unsigned int scene = instance.getCurrentSceneNumber();
+		int width = instance.getSDLManager()->getWindowWidth();
+		int height = instance.getSDLManager()->getWindowHeight();
+		unsigned int maxSubdivisions = instance.getScene()->getMaxSubdivisions();
+		unsigned int verticesSize = instance.getScene()->getVerticesSize();
+		// every vertex is made up of 3 4-byte floats
+		// calculate this before multipling if scene 3 or 4
+		unsigned int data = verticesSize * 12; 
+		bool hasLighting = instance.getScene()->hasLights();
+		bool depthTesting = instance.getGLManager()->isDepthTesting();
+		bool cullingBackFaces = instance.getGLManager()->isCullingBackFaces();
+
+		if (instance.getCurrentSceneNumber() == 3 || instance.getCurrentSceneNumber() == 4) {
+			verticesSize *= 9;
+		}
 
 		text
 			<< "Scene: " << scene << std::endl
@@ -43,7 +50,7 @@ void Text::update() const {
 			<< "Subdivisions: " << maxSubdivisions << std::endl
 			<< "Vertices: " << verticesSize << std::endl
 			<< "Faces: " << ((verticesSize / 8) * 2 * 6) << std::endl // 8 verts per cube, 2 faces per 6 sides
-			<< "Data: " << verticesSize * 12 << " bytes" << std::endl // every vertex is made up of 3 4-byte floats
+			<< "Data: " << data << " bytes" << std::endl
 			<< "Lighting: " << (hasLighting ? "On" : "Off") << std::endl
 			<< "Depth testing: " << (depthTesting ? "On" : "Off") << std::endl
 			<< "Backface culling: " << (cullingBackFaces ? "On" : "Off") << std::endl;

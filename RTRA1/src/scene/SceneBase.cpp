@@ -6,7 +6,7 @@
 #include <glm/gtx/normal.hpp>
 
 SceneBase::SceneBase()
-	: m_maxSubvisions(2)
+	: m_maxSubvisions(1)
 	, m_edgeLength(1)
 	, m_lightNumber(1)
 	, m_lighting(true)

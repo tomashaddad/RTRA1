@@ -10,7 +10,7 @@
 #include "scene/Scene03.h"
 #include "scene/Scene04.h"
 //#include "scene/Scene05.h"
-//#include "scene/Scene06.h"
+#include "scene/Scene06.h"
 
 #include "FPSTimer.h"
 
@@ -167,8 +167,8 @@ void RTRApp::switchToScene(unsigned int sceneNumber) {
 	//case 5:
 	//	m_currentScene = std::make_unique<Scene05>();
 	//	break;
-	//case 6:
-	//	m_currentScene = std::make_unique<Scene06>();
+	case 6:
+		m_currentScene = std::make_unique<Scene06>();
 		break;
 	}
 

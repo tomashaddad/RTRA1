@@ -1,11 +1,13 @@
 #pragma once
 
 #include "SceneBase.h"
+#include "api/Shader.h"
 
-class Scene06 : public SceneBase {
+#include "ModernScene.h"
+
+class Scene06 : public ModernScene {
 public:
-	virtual void render() override;
+	Scene06();
 	virtual void init() override;
-	virtual void quit() override;
+	virtual void render() override;
 };
-

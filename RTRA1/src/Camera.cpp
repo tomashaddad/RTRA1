@@ -11,7 +11,7 @@ Camera::Camera(float fov, float near, float far)
 	, m_far(far)
 	, m_position(glm::vec3(0.0f))
 	, m_rotation(glm::quat(1.0f, 0.0f, 0.0f, 0.0f))
-	, m_movementSpeed(15)
+	, m_movementSpeed(3)
 	, m_rotationSpeed(50)
 	, m_mouseSpeed(0.001) {}
 
