@@ -42,12 +42,6 @@
     <ClCompile Include="src\api\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\api\VBO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\api\VAO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\scene\Scene00.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -963,12 +957,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\api\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\api\VBO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\api\VAO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dependencies\gltext.h">

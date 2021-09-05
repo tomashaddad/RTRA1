@@ -184,8 +184,6 @@
     <ClCompile Include="src\scene\Scene06.cpp" />
     <ClCompile Include="src\scene\SceneBase.cpp" />
     <ClCompile Include="src\SDLManager.cpp" />
-    <ClCompile Include="src\api\VAO.cpp" />
-    <ClCompile Include="src\api\VBO.cpp" />
     <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\Transformation.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
@@ -493,8 +491,6 @@
     <ClInclude Include="src\dependencies\glm\vector_relational.hpp" />
     <ClInclude Include="src\dependencies\stb_image.h" />
     <ClInclude Include="src\SDLManager.h" />
-    <ClInclude Include="src\api\VAO.h" />
-    <ClInclude Include="src\api\VBO.h" />
     <ClInclude Include="src\Text.h" />
     <ClInclude Include="src\Transformation.h" />
     <ClInclude Include="src\Triangle.h" />

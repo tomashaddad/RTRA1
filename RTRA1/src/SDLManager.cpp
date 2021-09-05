@@ -25,8 +25,8 @@ SDLManager::SDLManager(const std::string& title, int width, int height, bool ful
 	: m_window({ title, width, height, fullscreen })
 {
 	initialise();
-	glEnable(GL_DEBUG_OUTPUT);
-	glDebugMessageCallback(MessageCallback, 0);
+	//glEnable(GL_DEBUG_OUTPUT);
+	//glDebugMessageCallback(MessageCallback, 0);
 }
 
 SDLManager::~SDLManager() {
@@ -61,7 +61,7 @@ bool SDLManager::initSDL() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG);
-
+	//SDL_GL_SetSwapInterval(0);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	return true;
