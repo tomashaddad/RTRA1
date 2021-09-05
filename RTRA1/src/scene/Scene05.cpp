@@ -2,9 +2,6 @@
 
 #include "RTRApp.h"
 
-#include <iostream>
-#include <sstream>
-
 #include <glm/glm.hpp>
 
 Scene05::Scene05()
@@ -28,6 +25,8 @@ void Scene05::init() {
 	glBindVertexArray(0);
 }
 
+// it's better to create a float from getNonLinearTransformedTime() outside the loop
+// but the effect of having it inside the loop is cool so I kept it!s
 void Scene05::sendVerticesToBuffer() {
 	glBindVertexArray(m_VAO);
 	m_transformedVertices.clear();

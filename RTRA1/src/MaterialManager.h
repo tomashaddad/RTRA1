@@ -20,7 +20,7 @@ class MaterialManager {
 public:
 	MaterialManager();
 
-	void setMaterial(MaterialName name);
+	void setMaterial(MaterialName name, bool hasLights);
 	const Material getMaterialByName(MaterialName name) const;
 	const std::vector<Material> getMaterials() const;
 

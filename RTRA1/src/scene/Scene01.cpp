@@ -54,13 +54,13 @@ void Scene01::render() {
 			glm::vec3 normal = glm::normalize(glm::triangleNormal(p1, p2, p3));
 
 			if (abs(normal.x) == 1) {
-				m_materialManager.setMaterial(MaterialName::RUBY);
+				m_materialManager.setMaterial(MaterialName::RUBY, hasLights());
 			}
 			else if (abs(normal.y) == 1) {
-				m_materialManager.setMaterial(MaterialName::EMERALD);
+				m_materialManager.setMaterial(MaterialName::EMERALD, hasLights());
 			}
 			else if (abs(normal.z) == 1) {
-				m_materialManager.setMaterial(MaterialName::TURQUOISE);
+				m_materialManager.setMaterial(MaterialName::TURQUOISE, hasLights());
 			}
 
 			glNormal3f(normal.x, normal.y, normal.z);

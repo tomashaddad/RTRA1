@@ -47,7 +47,8 @@ MaterialManager::MaterialManager()
 	m_activeMaterial = &m_ruby;
 }
 
-void MaterialManager::setMaterial(MaterialName name) {
+// for fixed function pipeline
+void MaterialManager::setMaterial(MaterialName name, bool hasLights) {
 	switch (name) {
 	case MaterialName::RUBY:
 		m_activeMaterial = &m_ruby;
@@ -60,23 +61,27 @@ void MaterialManager::setMaterial(MaterialName name) {
 		break;
 	}
 
-	glMaterialfv(GL_FRONT, GL_AMBIENT, (const float*)glm::value_ptr(m_activeMaterial->ambient));
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, (const float*)glm::value_ptr(m_activeMaterial->diffuse));
-	glMaterialfv(GL_FRONT, GL_SPECULAR, (const float*)glm::value_ptr(m_activeMaterial->specular));
-	glMaterialf(GL_FRONT, GL_SHININESS, m_activeMaterial->shininess);
+	if (hasLights)
+	{
+		glMaterialfv(GL_FRONT, GL_AMBIENT, (const float*)glm::value_ptr(m_activeMaterial->ambient));
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, (const float*)glm::value_ptr(m_activeMaterial->diffuse));
+		glMaterialfv(GL_FRONT, GL_SPECULAR, (const float*)glm::value_ptr(m_activeMaterial->specular));
+		glMaterialf(GL_FRONT, GL_SHININESS, m_activeMaterial->shininess);
+	} else
+	{
+		glm::vec3 colour = m_activeMaterial->ambient + m_activeMaterial->diffuse;
+		glColor3f(colour.x, colour.y, colour.z);
+	}
 }
 
 const Material MaterialManager::getMaterialByName(MaterialName name) const {
 	switch (name) {
 	case MaterialName::RUBY:
 		return m_ruby;
-		break;
 	case MaterialName::EMERALD:
 		return m_emerald;
-		break;
 	case MaterialName::TURQUOISE:
 		return m_turquoise;
-		break;
 	}
 }
 

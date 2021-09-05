@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-#include "GLException.h"
-
 #include "scene/Scene00.h"
 #include "scene/Scene01.h"
 #include "scene/Scene02.h"

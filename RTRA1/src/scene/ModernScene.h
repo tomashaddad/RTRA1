@@ -11,7 +11,7 @@ public:
 	// Constructor takes a shared pointer to prevent copying of
 	// internal shader object (effectively acts as a program counter)
 	ModernScene(std::shared_ptr<Shader> shader);
-	virtual ~ModernScene();
+	virtual ~ModernScene() override;
 	virtual void init() override;
 	virtual void render() = 0;
 	virtual void incrementSubdivisions() override;
