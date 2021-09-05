@@ -90,6 +90,9 @@
     <ClCompile Include="src\scene\Scene06.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\Scene05.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\dependencies\glm\detail\_features.hpp">
@@ -1010,6 +1013,9 @@
     <ClInclude Include="src\scene\Scene06.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene\Scene05.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\dependencies\glm\detail\func_common.inl">
@@ -1437,5 +1443,8 @@
     <None Include="src\shaders\scene06\menger.vert" />
     <None Include="src\shaders\scene06\menger.frag" />
     <None Include="src\shaders\scene06\menger.geom" />
+    <None Include="src\shaders\scene05\menger.frag" />
+    <None Include="src\shaders\scene05\menger.geom" />
+    <None Include="src\shaders\scene05\menger.vert" />
   </ItemGroup>
 </Project>

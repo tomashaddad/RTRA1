@@ -1,0 +1,49 @@
+#version 460 core
+
+layout ( triangles ) in;
+layout ( triangle_strip, max_vertices = 3) out;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+in vData {
+	vec3 fragmentPosition;
+} vertexOut[];
+
+out gData {
+	vec3 fragmentPosition;
+} geometryOut;
+
+out vec3 outNormal;
+
+out int matindex;
+
+void main() {
+	vec3 vector0 = vec3(gl_in[1].gl_Position - gl_in[0].gl_Position);
+	vec3 vector1 = vec3(gl_in[2].gl_Position - gl_in[0].gl_Position);
+	vec3 surfaceNormal = vec3(normalize(cross(vector0, vector1)));
+
+	float max_normal = max(max(abs(surfaceNormal.x), abs(surfaceNormal.y)), abs(surfaceNormal.z));
+
+	int selected_mat = 0;
+
+	if (abs(surfaceNormal.x) == max_normal) {
+		selected_mat = 0;
+	} else if (abs(surfaceNormal.y)  == max_normal) {
+		selected_mat = 1;
+	} else if (abs(surfaceNormal.z)  == max_normal) {
+		selected_mat = 2;
+	}
+
+	mat3 normalModel = mat3(transpose(inverse(model)));
+
+	for (int i = 0; i < 3; ++i) {
+		matindex = selected_mat;
+		geometryOut.fragmentPosition = vertexOut[i].fragmentPosition;
+		outNormal = normalModel * surfaceNormal.xyz;
+		gl_Position = projection * view * model * gl_in[i].gl_Position;
+		EmitVertex();
+	}
+	EndPrimitive();
+}

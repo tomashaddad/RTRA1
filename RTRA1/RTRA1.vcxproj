@@ -180,6 +180,7 @@
     <ClCompile Include="src\scene\Scene02.cpp" />
     <ClCompile Include="src\scene\Scene03.cpp" />
     <ClCompile Include="src\scene\Scene04.cpp" />
+    <ClCompile Include="src\scene\Scene05.cpp" />
     <ClCompile Include="src\scene\Scene06.cpp" />
     <ClCompile Include="src\scene\SceneBase.cpp" />
     <ClCompile Include="src\SDLManager.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="src\scene\Scene02.h" />
     <ClInclude Include="src\scene\Scene03.h" />
     <ClInclude Include="src\scene\Scene04.h" />
+    <ClInclude Include="src\scene\Scene05.h" />
     <ClInclude Include="src\scene\Scene06.h" />
     <ClInclude Include="src\scene\SceneBase.h" />
     <ClInclude Include="src\dependencies\glm\common.hpp" />
@@ -648,6 +650,9 @@
     <None Include="src\shaders\scene04\menger.frag" />
     <None Include="src\shaders\scene04\menger.geom" />
     <None Include="src\shaders\scene04\menger.vert" />
+    <None Include="src\shaders\scene05\menger.frag" />
+    <None Include="src\shaders\scene05\menger.geom" />
+    <None Include="src\shaders\scene05\menger.vert" />
     <None Include="src\shaders\scene06\menger.frag" />
     <None Include="src\shaders\scene06\menger.geom" />
     <None Include="src\shaders\scene06\menger.vert" />

@@ -21,15 +21,6 @@ ModernScene::~ModernScene() {
 	glDeleteBuffers(1, &m_EBO);
 }
 
-void ModernScene::incrementSubdivisions() {
-	SceneBase::incrementSubdivisions();
-	updateLayout();
-}
-
-void ModernScene::decrementSubdivisions() {
-	SceneBase::decrementSubdivisions();
-	updateLayout();
-}
 
 // same for scenes 2, 3, 4, 6
 // overwritten in scenes 1 and 5 (and 0 for sandbox)
@@ -47,6 +38,16 @@ void ModernScene::init() {
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+}
+
+void ModernScene::incrementSubdivisions() {
+	SceneBase::incrementSubdivisions();
+	updateLayout();
+}
+
+void ModernScene::decrementSubdivisions() {
+	SceneBase::decrementSubdivisions();
+	updateLayout();
 }
 
 void ModernScene::updateLayout() {

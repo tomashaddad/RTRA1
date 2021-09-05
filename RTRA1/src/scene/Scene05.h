@@ -1,11 +1,17 @@
 #pragma once
 
 #include "SceneBase.h"
+#include "api/Shader.h"
 
-class Scene05 : public SceneBase {
+#include "ModernScene.h"
+
+class Scene05 : public ModernScene {
 public:
-	virtual void render() override;
+	Scene05();
 	virtual void init() override;
-	virtual void quit() override;
+	virtual void render() override;
+private:
+	virtual void updateLayout() override;
+	void calculateVertices();
+	std::vector<glm::vec3> m_transformedVertices;
 };
-

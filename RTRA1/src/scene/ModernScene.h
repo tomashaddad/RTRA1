@@ -18,7 +18,7 @@ public:
 	virtual void decrementSubdivisions() override;
 
 protected:
-	void updateLayout();
+	virtual void updateLayout();
 	void setDirectionalLight(const std::string lightName, const DirectionalLight light);
 	void setPointLight(const std::string lightName, const PointLight light, int index);
 	void setMaterial(const std::string materialName, const Material material, int index);
