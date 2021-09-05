@@ -12,7 +12,6 @@
 class Scene04 : public ModernScene {
 public:
 	Scene04();
-	virtual void init() override;
 	virtual void render() override;
 private:
 	float m_rotationSpeed;

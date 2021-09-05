@@ -8,6 +8,5 @@
 class Scene06 : public ModernScene {
 public:
 	Scene06();
-	virtual void init() override;
 	virtual void render() override;
 };

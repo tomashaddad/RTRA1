@@ -24,13 +24,15 @@ void main() {
 	vec3 vector1 = vec3(gl_in[2].gl_Position - gl_in[0].gl_Position);
 	vec3 surfaceNormal = vec3(normalize(cross(vector0, vector1)));
 
-	int selected_mat = 2;
+	float max_normal = max(max(abs(surfaceNormal.x), abs(surfaceNormal.y)), abs(surfaceNormal.z));
 
-	if (abs(surfaceNormal.x) > 0) {
+	int selected_mat = 0;
+
+	if (abs(surfaceNormal.x) == max_normal) {
 		selected_mat = 0;
-	} else if (abs(surfaceNormal.y) > 0) {
+	} else if (abs(surfaceNormal.y)  == max_normal) {
 		selected_mat = 1;
-	} else if (abs(surfaceNormal.z) > 0) {
+	} else if (abs(surfaceNormal.z)  == max_normal) {
 		selected_mat = 2;
 	}
 

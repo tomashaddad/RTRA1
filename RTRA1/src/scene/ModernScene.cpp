@@ -1,6 +1,8 @@
 #include "ModernScene.h"
 
 #include <string>
+#include "RTRApp.h"
+#include <cmath>
 
 ModernScene::ModernScene(std::shared_ptr<Shader> shader)
 	: m_VAO(0)
@@ -27,6 +29,24 @@ void ModernScene::incrementSubdivisions() {
 void ModernScene::decrementSubdivisions() {
 	SceneBase::decrementSubdivisions();
 	updateLayout();
+}
+
+// same for scenes 2, 3, 4, 6
+// overwritten in scenes 1 and 5 (and 0 for sandbox)
+void ModernScene::init() {
+	glBindVertexArray(m_VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_menger.vertices.size(), m_menger.vertices.data(), GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * m_menger.indices.size(), m_menger.indices.data(), GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
 void ModernScene::updateLayout() {
@@ -60,4 +80,15 @@ void ModernScene::setMaterial(const std::string materialName, const Material mat
 	m_shader->setVec3f(materialName + "[" + std::to_string(index) + "].diffuse", material.diffuse);
 	m_shader->setVec3f(materialName + "[" + std::to_string(index) + "].specular", material.specular);
 	m_shader->setFloat(materialName + "[" + std::to_string(index) + "].shininess", material.shininess);
+}
+
+// https://easings.net/#easeInOutBack
+const float ModernScene::getNonLinearTransformedTime() const {
+	float time = RTRApp::instance().getSDLManager()->getTimeElapsed();
+	float normalisedTime = 0.5 * sin(time) + 0.5; // transforms time elapsed to between 0 and 1
+
+	float c1 = 1.70158;
+	float c3 = c1 + 1;
+
+	return c3 * normalisedTime * normalisedTime * normalisedTime - c1 * normalisedTime * normalisedTime;
 }

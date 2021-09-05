@@ -12,7 +12,7 @@ public:
 	// internal shader object (effectively acts as a program counter)
 	ModernScene(std::shared_ptr<Shader> shader);
 	virtual ~ModernScene();
-	virtual void init() = 0;
+	virtual void init() override;
 	virtual void render() = 0;
 	virtual void incrementSubdivisions() override;
 	virtual void decrementSubdivisions() override;
@@ -22,6 +22,7 @@ protected:
 	void setDirectionalLight(const std::string lightName, const DirectionalLight light);
 	void setPointLight(const std::string lightName, const PointLight light, int index);
 	void setMaterial(const std::string materialName, const Material material, int index);
+	const float getNonLinearTransformedTime() const;
 	unsigned int m_VBO;
 	unsigned int m_VAO;
 	unsigned int m_EBO;
